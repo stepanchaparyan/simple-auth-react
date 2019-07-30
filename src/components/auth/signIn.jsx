@@ -37,7 +37,7 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.state.user) return <Redirect to='/' /> 
+    if (this.props.user)  return <Redirect to='/' /> 
     return (
       <div className="loginContainer">
        <div className="formSignIn">

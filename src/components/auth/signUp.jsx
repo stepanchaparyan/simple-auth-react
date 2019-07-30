@@ -4,7 +4,7 @@ import '../../stylesheets/auth.scss';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { FaEye } from 'react-icons/fa';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo2.png';
 import { DebounceInput } from 'react-debounce-input';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
@@ -41,7 +41,7 @@ class SignUp extends Component {
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'})
   }
   render() {
-    if (this.state.user) return <Redirect to='/' /> 
+    if (this.props.user) return <Redirect to='/' /> 
     return (
       <div className="loginContainer">
       <div className="formSignUp">
