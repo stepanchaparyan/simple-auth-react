@@ -10,21 +10,25 @@ import firebase from '../../config/fbConfig';
 
 class ForgotPasword extends Component {
     state = {
-        email: ''
+        email: '',
+        errorText: '',
+        message: ''
     }    
     
-    handleChange = (e, value) => {
+    handleChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            email: e.target.value,
+            message: '',
+            errorText: ''
         })
     }
 
     sendEmail = (e) => {
         e.preventDefault();
-        firebase.auth.sendPasswordResetEmail(this.state.email).then((u) => {
-            document.getElementById("wrongEmail").style.visibility = 'hidden';
+        firebase.auth().sendPasswordResetEmail(this.state.email).then((u) => {
+            this.setState({show: true, message: true})
         }).catch((error) => {
-            document.getElementById("wrongEmail").style.visibility = 'visible';
+            this.setState({errorText: error.message});
         });
     }
 
@@ -48,13 +52,12 @@ class ForgotPasword extends Component {
                                 onChange={this.handleChange}
                     />
                 </div>
-                <div id="wrongEmail">Please enter a valid email</div>
-                <SweetAlert
-                    show={this.state.show}
-                    title="GOOD!"            
-                    text="Please check your email"
-                    onConfirm={() => this.setState({ show: false })}
-                />
+                <div id="wrongUser">
+                    { this.state.errorText ? <p>{this.state.errorText}</p> : null }
+                </div>
+                <div id="wrongUser">
+                    { this.state.message ? <p>{'Please check your email'}</p> : null }
+                </div>
                 <div className="form-group" id="btn">
                     <Button className="btnSignIn" size="lg" block color="info">Submit</Button>
                 </div>
