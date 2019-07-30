@@ -3,15 +3,18 @@ import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
 import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
-import { FaTruck } from 'react-icons/fa';
-
+import logo from '../../assets/logo2.png';
 import firebase from '../../config/fbConfig';
+import PropTypes from 'prop-types'; 
 
 class MyNavbar extends Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired
+  };
 
   signOut = () => {
       firebase.auth().signOut();
-  }  
+  }
 
   render () {
     const { user } = this.props;
@@ -20,11 +23,14 @@ class MyNavbar extends Component {
     return (
       <Navbar className="p-2 bg-info text-white" light expand="md">
         <Container>
-        <div className="iconAndTitle">
-            <div className="FaTruck"> <FaTruck /></div>
-            <NavbarBrand href="/">Simple Auth App</NavbarBrand>
-        </div>
-        {links}
+          <NavbarBrand href="/">
+            <div className="iconAndTitle">
+                <div className="logo">
+                    <img src={logo} alt="Logo" />
+                </div>
+            </div>
+          </NavbarBrand>
+          {links}
         </Container>
       </Navbar>
     )
