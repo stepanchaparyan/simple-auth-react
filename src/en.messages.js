@@ -1,53 +1,16 @@
 module.exports = {
-    projectTitle: 'Delivery App',
-    shops: 'Shops',
-    name: 'Name',
-    city: 'City',
-    address: 'Address',
-    shopsList: 'Shops list',
-    addNewShop: 'Add new shop',
-
-    products: 'Products',
-    productsList: 'Products list',
-    addNewProduct: 'Add new product',
-    price: 'Price',
-    quantity: 'Quantity',
-
-    update: 'Update',
-    add: 'Add',
-    loadingProject: 'Loading project ...',
+    logIn: 'Log In',
+    email: 'Email',
+    password: 'Password',
+    submit: 'Submit',
+    forgotPassword: 'Forgot password',
+    signup: 'Sign Up',
+    firstName: 'First name',
+    phoneNumber: 'Phone number',
+    resetPassword: 'Enter your email to reset password',
     signOut: 'Sign Out',
+    signIn: 'Sign In'
 
-
-    shopsPage:{
-        title: 'Shops list',
-        addNewShop: 'addNewShop',
-    },
-    user: {
-        create: {
-            label: {
-                title: 'Invite User:',
-                detail: 'User Detail:',
-                email: 'Email:',
-                roles: 'Roles:'
-            },
-            placeholder: {
-                email: 'Enter an email address',
-                firstName: 'First Name',
-                lastName: 'Last Name'
-            }
-        },
-        edit: {
-            label: {
-                name: 'Name:',
-                roles: 'Roles:'
-            },
-            placeholder: {
-                email: 'Enter an email address',
-                lastName: 'Last Name'
-            }
-        }
-    }
 
 
 }

@@ -9,6 +9,8 @@ import { DebounceInput } from 'react-debounce-input';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
+import messages from '../../en.messages';
+import PropTypes from 'prop-types'; 
 
 class SignIn extends Component {
   state = {
@@ -18,6 +20,10 @@ class SignIn extends Component {
     user: '',
     errorText: ''
   }
+
+  static propTypes = {
+    user: PropTypes.object
+  };
   
   handleChange = (e) => {
     this.setState({
@@ -49,10 +55,10 @@ class SignIn extends Component {
             <div className="logo">
               <img src={logo} alt="Logo" />
             </div>
-            <div className="title">LogIn</div>
+            <div className="title">{messages.logIn}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
               <div className="form-group">
-                  <label className="lebel" htmlFor="email">Email</label>
+                  <label className="lebel" htmlFor="email">{messages.email}</label>
                   <DebounceInput element={TextInput}
                       debounceTimeout={500}
                       name="email"
@@ -65,7 +71,7 @@ class SignIn extends Component {
                   />
               </div>
               <div className="form-group">
-                  <label className="lebel" htmlFor="password">Password</label>
+                  <label className="lebel" htmlFor="password">{messages.password}</label>
                   <DebounceInput element={TextInputGroup}
                       debounceTimeout={500}
                       name="password"
@@ -87,9 +93,9 @@ class SignIn extends Component {
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
               <div className="form-group" id="btn">
-                <Button className="btnSignIn" size="lg" block color="info">Submit</Button>
+                <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
               </div>
-              <Link className="forgotPassword" to="/forgotPassword">Forgot password?</Link>
+              <Link className="forgotPassword" to="/forgotPassword">{messages.forgotPassword}?</Link>
           </ValidationForm>
           </div>
         </div>  

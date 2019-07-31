@@ -9,6 +9,8 @@ import { DebounceInput } from 'react-debounce-input';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
+import messages from '../../en.messages';
+import PropTypes from 'prop-types'; 
 
 class SignUp extends Component {
   state = {
@@ -20,11 +22,17 @@ class SignUp extends Component {
     user: '',
     errorText: ''
   }
+
+  static propTypes = {
+    user: PropTypes.object
+  };
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -44,6 +52,7 @@ class SignUp extends Component {
   showhidepass = (e) => {
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'})
   }
+
   render() {
     if (this.props.user) return <Redirect to='/' /> 
     return (
@@ -53,10 +62,10 @@ class SignUp extends Component {
           <div className="logo">
             <img src={logo} alt="Logo" />
           </div>
-          <div className="title">Sign Up</div>
+          <div className="title">{messages.signup}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
             <div className="form-group">
-                <label className="lebel" htmlFor="email">Email</label>
+                <label className="lebel" htmlFor="email">{messages.email}</label>
                 <DebounceInput element={TextInput}
                     debounceTimeout={500}
                     name="email"
@@ -69,7 +78,7 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="password">Password</label>
+                <label className="lebel" htmlFor="password">{messages.password}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
                     name="password"
@@ -88,7 +97,7 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="firstName">First Name</label>
+                <label className="lebel" htmlFor="firstName">{messages.firstName}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
                     name="firstName"
@@ -105,7 +114,7 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="phoneNumber">Phone Number</label>
+                <label className="lebel" htmlFor="phoneNumber">{messages.phoneNumber}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
                     name="phoneNumber"
@@ -125,7 +134,7 @@ class SignUp extends Component {
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
             <div className="form-group" id="btn">
-                  <Button className="btnSignIn" size="lg" block color="info">Submit</Button>
+                  <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
             </div>
         </ValidationForm>
         </div>

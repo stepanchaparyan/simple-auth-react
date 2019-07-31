@@ -6,6 +6,7 @@ import logo from '../../assets/logo.png';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
+import messages from '../../en.messages';
 
 class ForgotPasword extends Component {
     state = {
@@ -39,10 +40,10 @@ class ForgotPasword extends Component {
                 <div className="logo">
                     <img src={logo} alt="Logo"/>
                 </div>
-                <div className="title">Forgot password</div>            
+                <div className="title">{messages.forgotPassword}</div>            
                 <ValidationForm onSubmit={this.sendEmail}>
                     <div className="form-group">
-                        <label className="lebel" htmlFor="email">Enter your email to reset password</label>
+                        <label className="lebel" htmlFor="email">{messages.resetPassword}</label>
                         <TextInput  name="email" 
                                     id="email" 
                                     type="email" 
@@ -59,7 +60,7 @@ class ForgotPasword extends Component {
                         { this.state.message ? <p>{'Please check your email'}</p> : null }
                     </div>
                     <div className="form-group" id="btn">
-                        <Button className="btnSignIn" size="lg" block color="info">Submit</Button>
+                        <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
                     </div>
                     </ValidationForm>
             </div>

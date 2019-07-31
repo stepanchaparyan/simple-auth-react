@@ -5,6 +5,8 @@ import { storage } from '../../config/fbConfig';
 import { Jumbotron, Progress, Button, CustomInput } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
+import Constants from '../../constants';
+import PropTypes from 'prop-types'; 
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,13 +15,17 @@ class Dashboard extends Component {
       firstName: '',
       phoneNumber: '',
       image: null,
-      url: 'https://firebasestorage.googleapis.com/v0/b/delivery-service-851de.appspot.com/o/images%2Fgray.jpg?alt=media&token=948b1860-40a3-44de-afa6-cc51e36dc1cf',
+      url: Constants.imageURL,
       progress: 0,
       show: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
+
+  static propTypes = {
+    user: PropTypes.object
+  };
 
   getExtraInfo = () => {
     const uid = this.props.user.uid ;
