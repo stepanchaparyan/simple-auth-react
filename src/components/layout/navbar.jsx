@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 class MyNavbar extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object
   };
 
   signOut = () => {

@@ -18,11 +18,13 @@ class SignIn extends Component {
     user: '',
     errorText: ''
   }
+  
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -33,6 +35,7 @@ class SignIn extends Component {
       this.setState({errorText: error.message})
     });
   }
+
   showhidepass = (e) => {
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'})
   }

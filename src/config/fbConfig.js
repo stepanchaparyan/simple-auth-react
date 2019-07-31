@@ -3,18 +3,18 @@ import 'firebase/firestore';
 import 'firebase/storage'
 import 'firebase/auth';
 
-var firebaseConfig = {
-    apiKey: "AIzaSyCZejQZP6f4vhHb1t2tBD9qda8BQp2V5kQ",
-    authDomain: "delivery-service-851de.firebaseapp.com",
-    databaseURL: "https://delivery-service-851de.firebaseio.com",
-    projectId: "delivery-service-851de",
-    storageBucket: "delivery-service-851de.appspot.com",
-    messagingSenderId: "703165206035",
-    appId: "1:703165206035:web:9d7f8c555948741e"
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6WVEkXqyMq0mW3lTPKXITEZ2GgLp6JaA",
+    authDomain: "simple-auth-react.firebaseapp.com",
+    databaseURL: "https://simple-auth-react.firebaseio.com",
+    projectId: "simple-auth-react",
+    storageBucket: "simple-auth-react.appspot.com",
+    messagingSenderId: "420366028932",
+    appId: "1:420366028932:web:5098a1d715034a63"
   };
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  //firebase.firestore().settings({ timestampsInSnapshots: true });
   const storage = firebase.storage();
 
   export { storage, firebase as default };

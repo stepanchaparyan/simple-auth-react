@@ -75,17 +75,20 @@ class Dashboard extends Component {
             </p>
           </Jumbotron>
             {this.state.show &&
-              <>
-                <div className='infoText'>User name - {this.state.firstName}</div>
-                <div className='infoText'>User phone number - {this.state.phoneNumber}</div>
-                <img src={this.state.url} alt="UploadImage" />
-                <hr /> 
-                <Progress id='progressBar' color="info" value={this.state.progress} max='100'>{this.state.progress}%</Progress>
-                <hr /> 
-                <CustomInput id="id" color="info" type='file' onChange={this.handleChange}/>
-                <hr /> 
-                <Button id='uploadBtn' color="info" block onClick={this.handleUpload} disabled={!this.state.image}>Upload New Image</Button> 
-              </>
+              <div id='main'>
+                <div id="one">
+                  <div className='infoText'>User first name - <span className="userInfo">{this.state.firstName}</span></div>
+                  <div className='infoText'>User phone number - <span className="userInfo">{this.state.phoneNumber}</span></div>
+                  <img src={this.state.url} alt="UploadImage" />
+                </div>
+                <div id="two"> 
+                  <Progress id='progressBar' color="info" value={this.state.progress} max='100'>{this.state.progress}%</Progress>
+                  <hr /> 
+                  <CustomInput id="id" color="info" type='file' onChange={this.handleChange}/>
+                  <hr /> 
+                  <Button id='uploadBtn' color="info" block onClick={this.handleUpload} disabled={!this.state.image}>Upload New Image</Button> 
+                </div>
+              </div>
             }
         </div>
       </DocumentTitle>

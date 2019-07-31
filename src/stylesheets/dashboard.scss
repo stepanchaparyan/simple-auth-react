@@ -4,14 +4,12 @@
     padding: 1% 10% 10% 8%;    
 }
 .infoText {
-    font-size: 16px;
     font-weight: bold;
-    margin: 1%;
     color: #1a8596;
 }
 
-#progressBar, #uploadBtn, .custom-file {
-    width: 30%;
+.userInfo {
+    color: black;
 }
 
 .jumbotron {
@@ -20,4 +18,9 @@
 
 .lead {
     margin-bottom: 0 !important
+}
+
+#main {
+    display: flex;
+    justify-content: space-around
 }

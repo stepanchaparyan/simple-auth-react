@@ -69,3 +69,6 @@ build/
 
 # package-lock.json
 package-lock.json
+
+# dist folder with build for firebase hosting
+dist/
