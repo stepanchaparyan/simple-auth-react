@@ -14,7 +14,7 @@ const SignedOutLinks = () => {
         </NavItem>
       </Nav>
     </div>
-  )
-}
+  );
+};
 
 export default SignedOutLinks;

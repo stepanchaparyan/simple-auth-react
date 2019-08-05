@@ -3,22 +3,23 @@ import { Redirect } from 'react-router-dom';
 import '../../stylesheets/dashboard.scss';
 import { storage } from '../../config/fbConfig';
 import { Jumbotron, Progress, Button, CustomInput } from 'reactstrap';
+// eslint-disable-next-line no-duplicate-imports
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import Constants from '../../constants';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 class Dashboard extends Component {
   constructor(props) {
-    super(props)
-    this.state = { 
+    super(props);
+    this.state = {
       firstName: '',
       phoneNumber: '',
       image: null,
       url: Constants.imageURL,
       progress: 0,
       show: false
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
@@ -32,19 +33,19 @@ class Dashboard extends Component {
     firebase.firestore().collection('users').doc(uid).get()
     .then((doc) => {
       doc.data();
-      this.setState({ 
-        phoneNumber: doc.data().phoneNumber, 
+      this.setState({
+        phoneNumber: doc.data().phoneNumber,
         firstName: doc.data().firstName});
     });
     this.setState ({
       show: !this.state.show
-    })
+    });
   }
 
   handleChange = e => {
-    if(e.target.files[0]) {
+    if (e.target.files[0]) {
       const image = e.target.files[0];
-      this.setState(() => ({image}))
+      this.setState(() => ({image}));
     }
   }
 
@@ -54,24 +55,24 @@ class Dashboard extends Component {
     uploadTask.on('state_changed',
     (snapshot) => {
       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      this.setState({progress})
+      this.setState({progress});
     },
     (error) => {
-      console.log(error)
+      console.log(error);
     },
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(url => {
-        this.setState(() => ({url}))
-      })        
-    });    
+        this.setState(() => ({url}));
+      });
+    });
   }
 
   render() {
     const { user } = this.props;
-    if (!user) return <Redirect to='/signIn' /> 
+    if (!user) {return <Redirect to='/signIn' />;}
     return (
       <DocumentTitle title='Simple Auth App - Dashboard'>
-        <div className="dashboard"> 
+        <div className="dashboard">
           <Jumbotron>
             <h1 className="display-5">Hello, everyone!</h1>
             <p className="lead">Information page about signed user</p>
@@ -87,18 +88,18 @@ class Dashboard extends Component {
                   <div className='infoText'>User phone number - <span className="userInfo">{this.state.phoneNumber}</span></div>
                   <img src={this.state.url} alt="UploadImage" />
                 </div>
-                <div id="two"> 
+                <div id="two">
                   <Progress id='progressBar' color="info" value={this.state.progress} max='100'>{this.state.progress}%</Progress>
-                  <hr /> 
+                  <hr />
                   <CustomInput id="id" color="info" type='file' onChange={this.handleChange}/>
-                  <hr /> 
-                  <Button id='uploadBtn' color="info" block onClick={this.handleUpload} disabled={!this.state.image}>Upload New Image</Button> 
+                  <hr />
+                  <Button id='uploadBtn' color="info" block onClick={this.handleUpload} disabled={!this.state.image}>Upload New Image</Button>
                 </div>
               </div>
             }
         </div>
       </DocumentTitle>
-    )
+    );
   }
 }
 

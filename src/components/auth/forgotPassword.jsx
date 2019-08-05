@@ -13,20 +13,21 @@ class ForgotPasword extends Component {
         email: '',
         errorText: '',
         message: ''
-    }    
-    
+    }
+
     handleChange = (e) => {
         this.setState({
             email: e.target.value,
             message: '',
             errorText: ''
-        })
+        });
     }
 
     sendEmail = (e) => {
         e.preventDefault();
+        // eslint-disable-next-line no-unused-vars
         firebase.auth().sendPasswordResetEmail(this.state.email).then((u) => {
-            this.setState({show: true, message: true})
+            this.setState({show: true, message: true});
         }).catch((error) => {
             this.setState({errorText: error.message});
         });
@@ -35,22 +36,22 @@ class ForgotPasword extends Component {
     render () {
         return (
           <DocumentTitle title='Simple Auth App - ForgotPasword'>
-            <div className="loginContainer">  
-            <div className="formForgotPassword">          
+            <div className="loginContainer">
+            <div className="formForgotPassword">
                 <div className="logo">
                     <img src={logo} alt="Logo"/>
                 </div>
-                <div className="title">{messages.forgotPassword}</div>            
+                <div className="title">{messages.forgotPassword}</div>
                 <ValidationForm onSubmit={this.sendEmail}>
                     <div className="form-group">
                         <label className="lebel" htmlFor="email">{messages.resetPassword}</label>
-                        <TextInput  name="email" 
-                                    id="email" 
-                                    type="email" 
-                                    validator={validator.isEmail} 
-                                    errorMessage={{validator:"Please enter a valid email"}}
-                                    value={this.state.email}
-                                    onChange={this.handleChange}
+                        <TextInput name="email"
+                                   id="email"
+                                   type="email"
+                                   validator={validator.isEmail}
+                                   errorMessage={{validator:'Please enter a valid email'}}
+                                   value={this.state.email}
+                                   onChange={this.handleChange}
                         />
                     </div>
                     <div id="wrongUser">
@@ -66,9 +67,8 @@ class ForgotPasword extends Component {
             </div>
             </div>
           </DocumentTitle>
-        )
+        );
     }
 }
 
- 
 export default ForgotPasword;

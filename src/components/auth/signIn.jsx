@@ -10,7 +10,7 @@ import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 class SignIn extends Component {
   state = {
@@ -24,30 +24,31 @@ class SignIn extends Component {
   static propTypes = {
     user: PropTypes.object
   };
-  
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
-    })
+    });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then((user) => { 
-      this.setState({user: user})
+    .then((user) => {
+      this.setState({user: user});
     })
     .catch((error) => {
-      this.setState({errorText: error.message})
+      this.setState({errorText: error.message});
     });
   }
 
   showhidepass = (e) => {
-    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'})
+    // eslint-disable-next-line no-unused-expressions
+    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
   }
 
   render() {
-    if (this.props.user) return <Redirect to='/' /> 
+    if (this.props.user) {return <Redirect to='/' />;}
     return (
       <DocumentTitle title='Simple Auth App - Sign In'>
         <div className="loginContainer">
@@ -65,7 +66,7 @@ class SignIn extends Component {
                       id="email"
                       type="email"
                       validator={validator.isEmail}
-                      errorMessage={{ validator: "Please enter a valid email" }}
+                      errorMessage={{ validator: 'Please enter a valid email' }}
                       value={this.state.email}
                       onChange={this.handleChange}
                   />
@@ -80,8 +81,8 @@ class SignIn extends Component {
                       required
                       pattern=".{6,}"
                       errorMessage={{
-                          required: "Password is required",
-                          pattern: "Password should be at least 6 characters long"
+                          required: 'Password is required',
+                          pattern: 'Password should be at least 6 characters long'
                       }}
                       value={this.state.password}
                       onChange={this.handleChange}
@@ -98,9 +99,9 @@ class SignIn extends Component {
               <Link className="forgotPassword" to="/forgotPassword">{messages.forgotPassword}?</Link>
           </ValidationForm>
           </div>
-        </div>  
+        </div>
       </DocumentTitle>
-    )
+    );
   }
 }
 

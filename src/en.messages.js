@@ -10,7 +10,4 @@ module.exports = {
     resetPassword: 'Enter your email to reset password',
     signOut: 'Sign Out',
     signIn: 'Sign In'
-
-
-
-}
+};

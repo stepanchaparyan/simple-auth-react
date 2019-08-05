@@ -10,7 +10,7 @@ import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 class SignUp extends Component {
   state = {
@@ -29,8 +29,8 @@ class SignUp extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value,
-    })
+      [e.target.id]: e.target.value
+    });
   }
 
   handleSubmit = (e) => {
@@ -40,7 +40,7 @@ class SignUp extends Component {
       this.setState({user: user});
       firebase.firestore().collection('users').doc(resp.user.uid).set({
         firstName: this.state.firstName,
-        phoneNumber: this.state.phoneNumber,
+        phoneNumber: this.state.phoneNumber
       });
     })
     .catch((error) => {
@@ -50,11 +50,12 @@ class SignUp extends Component {
   }
 
   showhidepass = (e) => {
-    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'})
+    // eslint-disable-next-line no-unused-expressions
+    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
   }
 
   render() {
-    if (this.props.user) return <Redirect to='/' /> 
+    if (this.props.user) {return <Redirect to='/' />;}
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
         <div className="loginContainer">
@@ -72,9 +73,9 @@ class SignUp extends Component {
                     id="email"
                     type="email"
                     validator={validator.isEmail}
-                    errorMessage={{ validator: "Please enter a valid email" }}
+                    errorMessage={{ validator: 'Please enter a valid email' }}
                     value={this.state.email}
-                    onChange={this.handleChange}                   
+                    onChange={this.handleChange}
                 />
             </div>
             <div className="form-group">
@@ -87,8 +88,8 @@ class SignUp extends Component {
                     required
                     pattern=".{6,}"
                     errorMessage={{
-                        required: "Password is required",
-                        pattern: "Password should be at least 6 characters long"
+                        required: 'Password is required',
+                        pattern: 'Password should be at least 6 characters long'
                     }}
                     value={this.state.password}
                     onChange={this.handleChange}
@@ -106,8 +107,8 @@ class SignUp extends Component {
                     required
                     pattern=".{3,}"
                     errorMessage={{
-                        required: "First Name is required",
-                        pattern: "First Name should be at least 3 characters long"
+                        required: 'First Name is required',
+                        pattern: 'First Name should be at least 3 characters long'
                     }}
                     value={this.state.firstName}
                     onChange={this.handleChange}
@@ -123,8 +124,8 @@ class SignUp extends Component {
                     required
                     pattern=".{9,}"
                     errorMessage={{
-                        required: "Phone Number is required",
-                        pattern: "Phone Number should be at least 9 characters long"
+                        required: 'Phone Number is required',
+                        pattern: 'Phone Number should be at least 9 characters long'
                     }}
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}
@@ -138,11 +139,10 @@ class SignUp extends Component {
             </div>
         </ValidationForm>
         </div>
-      </div>  
+      </div>
      </DocumentTitle>
-    )
+    );
   }
 }
-
 
 export default SignUp;

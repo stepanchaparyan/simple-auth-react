@@ -5,7 +5,7 @@ import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
 import logo from '../../assets/logo2.png';
 import firebase from '../../config/fbConfig';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 class MyNavbar extends Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class MyNavbar extends Component {
           {links}
         </Container>
       </Navbar>
-    )
+    );
   }
 }
 

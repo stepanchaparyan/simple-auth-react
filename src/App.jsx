@@ -11,8 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-    }
+      user: {}
+    };
   }
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   render() {
-    return ( 
+    return (
       <BrowserRouter>
         <div className="App">
           <Navbar user={this.state.user}/>
@@ -42,7 +42,7 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-    );   
+    );
   }
 }
 
