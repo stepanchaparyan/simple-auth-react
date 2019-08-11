@@ -11,16 +11,18 @@ import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
+import Constants from '../../constants';
 
 class SignUp extends Component {
   state = {
     email: '',
     password: '',
-    firstName: '',
+    displayName: '',
     phoneNumber: '',
     type: 'password',
     user: '',
-    errorText: ''
+    errorText: '',
+    photoURL: Constants.photoURL
   }
 
   static propTypes = {
@@ -36,11 +38,17 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then((resp, user) => {
-      this.setState({user: user});
+
+    .then((resp) => {
+      resp.user.updateProfile({
+        displayName: this.state.displayName,
+        photoURL: this.state.photoURL
+      });
+      this.setState({user: resp.user});
       firebase.firestore().collection('users').doc(resp.user.uid).set({
-        firstName: this.state.firstName,
-        phoneNumber: this.state.phoneNumber
+        displayName: this.state.displayName,
+        phoneNumber: this.state.phoneNumber,
+        photoURL: this.state.photoURL
       });
     })
     .catch((error) => {
@@ -98,19 +106,19 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="firstName">{messages.firstName}</label>
+                <label className="lebel" htmlFor="displayName">{messages.displayName}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
-                    name="firstName"
-                    id="firstName"
+                    name="displayName"
+                    id="displayName"
                     type="text"
                     required
                     pattern=".{3,}"
                     errorMessage={{
-                        required: 'First Name is required',
-                        pattern: 'First Name should be at least 3 characters long'
+                        required: 'Name is required',
+                        pattern: 'Name should be at least 3 characters long'
                     }}
-                    value={this.state.firstName}
+                    value={this.state.displayName}
                     onChange={this.handleChange}
                 />
             </div>
@@ -120,7 +128,7 @@ class SignUp extends Component {
                     debounceTimeout={500}
                     name="phoneNumber"
                     id="phoneNumber"
-                    type="number"
+                    type="text"
                     required
                     pattern=".{9,}"
                     errorMessage={{

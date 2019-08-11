@@ -5,7 +5,7 @@ module.exports = {
     submit: 'Submit',
     forgotPassword: 'Forgot password',
     signup: 'Sign Up',
-    firstName: 'First name',
+    displayName: 'Name',
     phoneNumber: 'Phone number',
     resetPassword: 'Enter your email to reset password',
     signOut: 'Sign Out',

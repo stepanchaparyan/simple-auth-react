@@ -13,10 +13,10 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
+      displayName: '',
       phoneNumber: '',
       image: null,
-      url: Constants.imageURL,
+      photoURL: Constants.photoURL,
       progress: 0,
       show: false
     };
@@ -30,12 +30,15 @@ class Dashboard extends Component {
 
   getExtraInfo = () => {
     const uid = this.props.user.uid ;
+    console.log(uid);
     firebase.firestore().collection('users').doc(uid).get()
     .then((doc) => {
       doc.data();
       this.setState({
-        phoneNumber: doc.data().phoneNumber,
-        firstName: doc.data().firstName});
+          displayName: doc.data().displayName,
+          phoneNumber: doc.data().phoneNumber,
+          firstName: doc.data().firstName
+      });
     });
     this.setState ({
       show: !this.state.show
@@ -62,7 +65,7 @@ class Dashboard extends Component {
     },
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(url => {
-        this.setState(() => ({url}));
+        this.setState(() => ({photoURL: url}));
       });
     });
   }
@@ -77,26 +80,7 @@ class Dashboard extends Component {
             <h1 className="display-5">Hello, everyone!</h1>
             <p className="lead">Information page about signed user</p>
             <hr className="my-4" />
-            <p className="lead">
-              <Button color="info" onClick={this.getExtraInfo}>Click for more info</Button>
-            </p>
           </Jumbotron>
-            {this.state.show &&
-              <div id='main'>
-                <div id="one">
-                  <div className='infoText'>User first name - <span className="userInfo">{this.state.firstName}</span></div>
-                  <div className='infoText'>User phone number - <span className="userInfo">{this.state.phoneNumber}</span></div>
-                  <img src={this.state.url} alt="UploadImage" />
-                </div>
-                <div id="two">
-                  <Progress id='progressBar' color="info" value={this.state.progress} max='100'>{this.state.progress}%</Progress>
-                  <hr />
-                  <CustomInput id="id" color="info" type='file' onChange={this.handleChange}/>
-                  <hr />
-                  <Button id='uploadBtn' color="info" block onClick={this.handleUpload} disabled={!this.state.image}>Upload New Image</Button>
-                </div>
-              </div>
-            }
         </div>
       </DocumentTitle>
     );

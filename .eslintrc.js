@@ -14,10 +14,6 @@ module.exports = {
           "version": "16.8.2"
         }
     },
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
     'parser': 'babel-eslint',
     'parserOptions': {
         'ecmaVersion': 7,
