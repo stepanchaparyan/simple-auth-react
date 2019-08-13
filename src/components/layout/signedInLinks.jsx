@@ -4,10 +4,7 @@ import '../../stylesheets/navbar.scss';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
 import { FaSignOutAlt } from 'react-icons/fa';
-import Constants from '../../constants';
-import firebase from '../../config/fbConfig';
-// eslint-disable-next-line no-duplicate-imports
-import { storage } from '../../config/fbConfig';
+import firebase, { storage } from '../../config/fbConfig';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -22,7 +19,6 @@ class SignedInLinks extends Component {
       displayName: '',
       phoneNumber: '',
       image: null,
-      photoURL: Constants.photoURL,
       progress: 0,
       show: false
     };
@@ -57,14 +53,36 @@ class SignedInLinks extends Component {
     },
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(url => {
-        this.setState(() => ({photoURL: url}));
-        console.log(url);
+        this.updateUserPhotoURL(url);
+        this.updateUserPhoneNumber('00123456789');
       });
     });
   }
 
+  updateUserPhotoURL = (url) => {
+    let user = firebase.auth().currentUser;
+    user.updateProfile({
+      photoURL: url
+    }).then(function() {
+      //console.log(url);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  updateUserPhoneNumber = (number) => {
+    let user = firebase.auth().currentUser;
+    user.updatePhoneNumber({
+      phoneNumber: number
+    }).then(function() {
+      console.log(number);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
   getExtraInfo = () => {
-    const uid = this.props.user.uid ;
+    const uid = this.props.user.uid;
     console.log(uid);
     firebase.firestore().collection('users').doc(uid).get()
     .then((doc) => {
@@ -85,7 +103,7 @@ class SignedInLinks extends Component {
     return (
       <Nav pills>
         <NavItem id='profileName' className="nav-text">{this.props.user.displayName}</NavItem>
-        <img id='avatar' src={this.state.photoURL} onClick={this.getExtraInfo}/>
+        <img id='avatar' src={this.props.user.photoURL} onClick={this.getExtraInfo}/>
         <div id='about'>
             {this.state.show &&
                   <div id='main'>
@@ -100,7 +118,7 @@ class SignedInLinks extends Component {
                     <div id="two">
                         <div className="image-upload">
                             <label htmlFor="fileInput">
-                                <img id='img' src={this.state.photoURL} />
+                                <img id='img' src={this.props.user.photoURL} />
                             </label>
                             <input id="fileInput" type="file" onChange={this.handleChange} />
                         </div>
