@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      phoneNumber: ''
     };
   }
 
@@ -26,6 +27,20 @@ class App extends Component {
       } else {
         this.setState({ user: null });
       }
+
+      this.getExtraInfoFromFirebaseStorage(user);
+    });
+  }
+
+  getExtraInfoFromFirebaseStorage = (user) => {
+    const uid = user.uid;
+    firebase.firestore().collection('users').doc(uid).get()
+    .then((doc) => {
+      doc.data();
+      this.setState({
+          //displayName: doc.data().displayName,
+          phoneNumber: doc.data().phoneNumber
+      });
     });
   }
 
@@ -33,7 +48,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar user={this.state.user}/>
+          <Navbar user={this.state.user} phoneNumber={this.state.phoneNumber}/>
           <Switch>
             <Route exact path='/' render={() => <Dashboard user={this.state.user}/>} />
             <Route path='/signin' render={() => <SignIn user={this.state.user}/>} />

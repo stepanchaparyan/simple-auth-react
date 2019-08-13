@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 
 class MyNavbar extends Component {
   static propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    phoneNumber: PropTypes.string
   };
 
   signOut = () => {
@@ -17,8 +18,8 @@ class MyNavbar extends Component {
   }
 
   render () {
-    const { user } = this.props;
-    const links = user ? <SignedInLinks user={user} signOut={this.signOut}/> : <SignedOutLinks />;
+    const { user, phoneNumber } = this.props;
+    const links = user ? <SignedInLinks user={user} signOut={this.signOut} phoneNumber={phoneNumber}/> : <SignedOutLinks />;
 
     return (
       <Navbar className="p-2 bg-info text-white" light expand="md">

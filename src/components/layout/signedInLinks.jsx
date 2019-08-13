@@ -1,23 +1,22 @@
 import React, {Component} from 'react';
-import { Nav, NavItem, Tooltip, Progress, Button, Input } from 'reactstrap';
+import { Nav, NavItem, Tooltip, Progress } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
-import { FaSignOutAlt } from 'react-icons/fa';
-import firebase, { storage } from '../../config/fbConfig';
+import {FaSignOutAlt} from 'react-icons/fa';
+import firebase, {storage} from '../../config/fbConfig';
 
 class SignedInLinks extends Component {
   static propTypes = {
     signOut: PropTypes.func,
-    user: PropTypes.object
+    user: PropTypes.object,
+    phoneNumber: PropTypes.string
   };
 
   constructor(props) {
     super(props);
     this.state = {
       tooltipOpen: false,
-      displayName: '',
-      phoneNumber: '',
       image: null,
       progress: 0,
       show: false
@@ -25,6 +24,10 @@ class SignedInLinks extends Component {
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
+    this.showExtraInfo = this.showExtraInfo.bind(this);
+    //this.resetProgress = this.resetProgress.bind(this);
+    this.updateUserPhotoURL = this.updateUserPhotoURL.bind(this);
+    //this.updateUserPhoneNumber = this.updateUserPhoneNumber.bind(this);
   }
 
   toggle() {
@@ -37,6 +40,7 @@ class SignedInLinks extends Component {
     if (e.target.files[0]) {
       const image = e.target.files[0];
       this.setState(() => ({image}));
+      this.resetProgress();
     }
   }
 
@@ -54,7 +58,8 @@ class SignedInLinks extends Component {
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(url => {
         this.updateUserPhotoURL(url);
-        this.updateUserPhoneNumber('00123456789');
+        setTimeout(() => { this.forceUpdate(); }, 2000);
+        //this.updateUserPhoneNumber('00123456789');
       });
     });
   }
@@ -70,66 +75,91 @@ class SignedInLinks extends Component {
     });
   }
 
-  updateUserPhoneNumber = (number) => {
-    let user = firebase.auth().currentUser;
-    user.updatePhoneNumber({
-      phoneNumber: number
-    }).then(function() {
-      console.log(number);
-    }).catch(function(error) {
-      console.log(error);
-    });
-  }
+  // updateUserPhoneNumber = (number) => {
+  //   let user = firebase.auth().currentUser;
+  //   user.updatePhoneNumber({
+  //     phoneNumber: number
+  //   }).then(function() {
+  //     console.log(number);
+  //   }).catch(function(error) {
+  //     console.log(error);
+  //   });
+  // }
 
-  getExtraInfo = () => {
-    const uid = this.props.user.uid;
-    console.log(uid);
-    firebase.firestore().collection('users').doc(uid).get()
-    .then((doc) => {
-      doc.data();
-      this.setState({
-          displayName: doc.data().displayName,
-          phoneNumber: doc.data().phoneNumber,
-          firstName: doc.data().firstName
-      });
-    });
+  showExtraInfo = () => {
     this.setState ({
       show: !this.state.show
     });
   }
 
+  resetProgress = () => {
+    this.setState ({
+      progress: 0
+    });
+  }
+
   render () {
     console.log(this.props.user);
+
     return (
       <Nav pills>
-        <NavItem id='profileName' className="nav-text">{this.props.user.displayName}</NavItem>
-        <img id='avatar' src={this.props.user.photoURL} onClick={this.getExtraInfo}/>
+        <NavItem
+            id='profileName'
+            className="nav-text">
+            {this.props.user.displayName}
+        </NavItem>
+        <img
+            id='avatar'
+            src={this.props.user.photoURL}
+            onClick={this.showExtraInfo}
+        />
         <div id='about'>
             {this.state.show &&
-                  <div id='main'>
-                    <div id="one">
-                        <div className='infoText'>First name</div>
-                        <div className="userInfo">{this.props.user.displayName}</div>
-                        <div className='infoText'>Phone number</div>
-                        <div className="userInfo">{this.state.phoneNumber}</div>
-                        <div className='infoText'>Email</div>
-                        <div className="userInfo">{this.props.user.email}</div>
-                    </div>
-                    <div id="two">
-                        <div className="image-upload">
-                            <label htmlFor="fileInput">
-                                <img id='img' src={this.props.user.photoURL} />
-                            </label>
-                            <input id="fileInput" type="file" onChange={this.handleChange} />
-                        </div>
-                      <Progress id='progressBar' color="info" value={this.state.progress} max='100'>{this.state.progress}%</Progress>
-                      <button id='uploadBtn' onClick={this.handleUpload} disabled={!this.state.image}>Upload</button>
-                    </div>
+                <div id='main'>
+                  <div id="one">
+                      <div className='infoText'>First name</div>
+                      <div className="userInfo">{this.props.user.displayName}</div>
+                      <div className='infoText'>Phone number</div>
+                      <div className="userInfo">{this.props.phoneNumber}</div>
+                      <div className='infoText'>Email</div>
+                      <div className="userInfo">{this.props.user.email}</div>
                   </div>
+                  <div id="two">
+                      <div className="image-upload">
+                          <label htmlFor="fileInput">
+                              <img id='img' src={this.props.user.photoURL} />
+                          </label>
+                          <input id="fileInput"
+                            type="file"
+                            onChange={this.handleChange}
+                          />
+                      </div>
+                      <Progress id='progressBar'
+                          color="info"
+                          value={this.state.progress}
+                          max='100'>
+                          {this.state.progress}%
+                      </Progress>
+                      <button id='uploadBtn'
+                          onClick={this.handleUpload}
+                          disabled={!this.state.image}>
+                          Upload
+                      </button>
+                  </div>
+                </div>
             }
         </div>
-        <NavItem id='signOut' onClick={this.props.signOut} className="nav-text"><FaSignOutAlt size={25} /></NavItem>
-        <Tooltip placement="auto" isOpen={this.state.tooltipOpen} target="signOut" toggle={this.toggle}>
+        <NavItem id='signOut'
+            onClick={this.props.signOut}
+            className="nav-text">
+            <FaSignOutAlt size={25} />
+        </NavItem>
+        <Tooltip
+            placement="auto"
+            isOpen={this.state.tooltipOpen}
+            target="signOut"
+            toggle={this.toggle}
+          >
           {messages.signOut}
         </Tooltip>
       </Nav>

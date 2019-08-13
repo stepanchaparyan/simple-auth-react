@@ -95,6 +95,11 @@ label {
     color: white;
 }
 
+#uploadBtn:disabled {
+    opacity: 0.3; 
+    cursor: not-allowed;
+  }
+
 .progress {
     width: 80%;
     margin-left: 10%;
