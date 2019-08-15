@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use strict';
 
 const fs = require('fs');
@@ -309,12 +308,12 @@ module.exports = function(webpackEnv) {
               options: {
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
-                
               },
-              loader: require.resolve('eslint-loader'),
-            },
+              loader: require.resolve('eslint-loader')
+            }
           ],
           include: paths.appSrc,
+          exclude: /node_modules/
         },
         {
           // "oneOf" will traverse all following loaders until one will

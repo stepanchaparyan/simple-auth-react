@@ -19,7 +19,8 @@ class SignedInLinks extends Component {
       tooltipOpen: false,
       image: null,
       progress: 0,
-      show: false
+      show: false,
+      photoURL: null
     };
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -56,18 +57,17 @@ class SignedInLinks extends Component {
       console.log(error);
     },
     () => {
-      storage.ref('images').child(image.name).getDownloadURL().then(url => {
-        this.updateUserPhotoURL(url);
-        setTimeout(() => { this.forceUpdate(); }, 2000);
-        //this.updateUserPhoneNumber('00123456789');
+      storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
+        this.updateUserPhotoURL(photoURL);
+        this.setState({photoURL});
       });
     });
   }
 
-  updateUserPhotoURL = (url) => {
+  updateUserPhotoURL = (photoURL) => {
     let user = firebase.auth().currentUser;
     user.updateProfile({
-      photoURL: url
+      photoURL: photoURL
     }).then(function() {
       //console.log(url);
     }).catch(function(error) {
@@ -110,7 +110,7 @@ class SignedInLinks extends Component {
         </NavItem>
         <img
             id='avatar'
-            src={this.props.user.photoURL}
+            src={this.state.photoURL || this.props.user.photoURL}
             onClick={this.showExtraInfo}
         />
         <div id='about'>
@@ -127,7 +127,7 @@ class SignedInLinks extends Component {
                   <div id="two">
                       <div className="image-upload">
                           <label htmlFor="fileInput">
-                              <img id='img' src={this.props.user.photoURL} />
+                              <img id='img' src={this.state.photoURL || this.props.user.photoURL} />
                           </label>
                           <input id="fileInput"
                             type="file"

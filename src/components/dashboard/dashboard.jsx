@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import '../../stylesheets/dashboard.scss';
-import { storage } from '../../config/fbConfig';
-import { Jumbotron, Progress, Button, CustomInput } from 'reactstrap';
-// eslint-disable-next-line no-duplicate-imports
-import firebase from '../../config/fbConfig';
+import firebase, { storage } from '../../config/fbConfig';
+import { Jumbotron } from 'reactstrap';
 import DocumentTitle from 'react-document-title';
 import Constants from '../../constants';
 import PropTypes from 'prop-types';

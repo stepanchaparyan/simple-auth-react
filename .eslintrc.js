@@ -27,7 +27,7 @@ module.exports = {
         "react"
     ],
     "rules": {
-        "no-trailing-spaces": 2,
+        "no-trailing-spaces": 1,
 		'no-duplicate-imports': 2,
         'require-await': 2,
         'no-dupe-keys': 2,
