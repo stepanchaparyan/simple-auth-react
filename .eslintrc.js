@@ -46,7 +46,7 @@ module.exports = {
         'default-case': 1,
         'dot-location': [1, 'property'],
         'dot-notation': [1, {'allowKeywords': true}],
-        'eqeqeq': 2,
+        'eqeqeq': 1,
         'no-alert': 1,
         'no-empty-function': 1,
         'no-extend-native': 2,

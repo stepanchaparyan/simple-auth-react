@@ -6,13 +6,15 @@ import SignIn from './components/auth/signIn';
 import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
 import firebase from './config/fbConfig';
+import Spinner from './components/myComponents/Spinner';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      phoneNumber: ''
+      phoneNumber: '',
+      loading: false
     };
   }
 
@@ -22,6 +24,7 @@ class App extends Component {
 
   authListener() {
     firebase.auth().onAuthStateChanged((user) => {
+        this.setState({ loading:true });
       if (user) {
         this.setState({ user: user });
       } else {
@@ -39,15 +42,17 @@ class App extends Component {
     .then((doc) => {
       doc.data();
       this.setState({
-          //displayName: doc.data().displayName,
           phoneNumber: doc.data().phoneNumber
       });
     });
   }
 
   render() {
+    const loading = this.state.loading;
+
     return (
       <BrowserRouter>
+      {loading ?
         <div className="App">
           <Navbar user={this.state.user} phoneNumber={this.state.phoneNumber}/>
           <Switch>
@@ -57,6 +62,8 @@ class App extends Component {
             <Route path='/forgotPassword' component={ForgotPassword} />
           </Switch>
         </div>
+        : <Spinner />
+      }
       </BrowserRouter>
     );
   }

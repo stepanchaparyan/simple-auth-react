@@ -26,9 +26,8 @@ class SignedInLinks extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.showExtraInfo = this.showExtraInfo.bind(this);
-    //this.resetProgress = this.resetProgress.bind(this);
+    this.resetProgress = this.resetProgress.bind(this);
     this.updateUserPhotoURL = this.updateUserPhotoURL.bind(this);
-    //this.updateUserPhoneNumber = this.updateUserPhoneNumber.bind(this);
   }
 
   toggle() {
@@ -60,6 +59,7 @@ class SignedInLinks extends Component {
       storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
         this.updateUserPhotoURL(photoURL);
         this.setState({photoURL});
+        this.setState({image:null});
       });
     });
   }
@@ -68,23 +68,10 @@ class SignedInLinks extends Component {
     let user = firebase.auth().currentUser;
     user.updateProfile({
       photoURL: photoURL
-    }).then(function() {
-      //console.log(url);
     }).catch(function(error) {
       console.log(error);
     });
   }
-
-  // updateUserPhoneNumber = (number) => {
-  //   let user = firebase.auth().currentUser;
-  //   user.updatePhoneNumber({
-  //     phoneNumber: number
-  //   }).then(function() {
-  //     console.log(number);
-  //   }).catch(function(error) {
-  //     console.log(error);
-  //   });
-  // }
 
   showExtraInfo = () => {
     this.setState ({
