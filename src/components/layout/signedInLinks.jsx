@@ -18,7 +18,8 @@ class SignedInLinks extends Component {
       tooltipOpen: false,
       image: null,
       progress: 0,
-      show: false
+      show: false,
+      photoURL: null
     };
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -56,6 +57,7 @@ class SignedInLinks extends Component {
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
         this.updateUserPhotoURL(photoURL);
+        this.setState({photoURL});
         this.setState({image:null});
       });
     });
@@ -94,7 +96,7 @@ class SignedInLinks extends Component {
         </NavItem>
         <img
             id='avatar'
-            src={this.props.user.photoURL}
+            src={this.state.photoURL || this.props.user.photoURL}
             onClick={this.showExtraInfo}
         />
         <div id='about'>
@@ -112,7 +114,7 @@ class SignedInLinks extends Component {
                   <div id="two">
                       <div className="image-upload">
                           <label htmlFor="fileInput">
-                              <img id='img' src={this.props.user.photoURL} />
+                              <img id='img' src={this.state.photoURL || this.props.user.photoURL} />
                           </label>
                           <input id="fileInput"
                             type="file"
