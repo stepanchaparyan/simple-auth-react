@@ -30,9 +30,9 @@ class App extends Component {
       } else {
         this.setState({ user: null });
       }
-      { user && 
-        this.getExtraInfoFromFirebaseStorage(user);
-      }
+      // { user &&
+      //   this.getExtraInfoFromFirebaseStorage(user);
+      // }
     });
   }
 
@@ -54,7 +54,7 @@ class App extends Component {
       <BrowserRouter>
       {loading ?
         <div className="App">
-          <Navbar user={this.state.user} phoneNumber={this.state.phoneNumber}/>
+          <Navbar user={this.state.user}/>
           <Switch>
             <Route exact path='/' render={() => <Dashboard user={this.state.user}/>} />
             <Route path='/signin' render={() => <SignIn user={this.state.user}/>} />

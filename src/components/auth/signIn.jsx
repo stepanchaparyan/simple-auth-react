@@ -4,13 +4,16 @@ import '../../stylesheets/auth.scss';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { FaEye } from 'react-icons/fa';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo2.png';
 import { DebounceInput } from 'react-debounce-input';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+//import Button from 'react-bootstrap/Button';
 
 class SignIn extends Component {
   state = {
@@ -19,6 +22,17 @@ class SignIn extends Component {
     type: 'password',
     user: '',
     errorText: ''
+  }
+
+  uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false
+    }
   }
 
   static propTypes = {
@@ -42,7 +56,7 @@ class SignIn extends Component {
     });
   }
 
-  showhidepass = (e) => {
+  showhidepass = () => {
     // eslint-disable-next-line no-unused-expressions
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
   }
@@ -97,6 +111,11 @@ class SignIn extends Component {
                 <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
               </div>
               <Link className="forgotPassword" to="/forgotPassword">{messages.forgotPassword}?</Link>
+              <StyledFirebaseAuth
+                uiConfig={this.uiConfig}
+                firebaseAuth={firebase.auth()}
+                className={'socialAuth'}
+              />
           </ValidationForm>
           </div>
         </div>

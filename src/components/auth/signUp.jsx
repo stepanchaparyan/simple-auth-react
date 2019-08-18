@@ -4,7 +4,7 @@ import '../../stylesheets/auth.scss';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { FaEye } from 'react-icons/fa';
-import logo from '../../assets/logo2.png';
+import logo from '../../assets/logo.png';
 import { DebounceInput } from 'react-debounce-input';
 import { Button } from 'reactstrap';
 import firebase from '../../config/fbConfig';
@@ -38,26 +38,25 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-
-    .then((resp) => {
-      resp.user.updateProfile({
-        displayName: this.state.displayName,
-        photoURL: this.state.photoURL
-      });
-      this.setState({user: resp.user});
-      firebase.firestore().collection('users').doc(resp.user.uid).set({
-        displayName: this.state.displayName,
-        phoneNumber: this.state.phoneNumber,
-        photoURL: this.state.photoURL
-      });
-    })
+    // .then((resp) => {
+    //   resp.user.updateProfile({
+    //     displayName: this.state.displayName,
+    //     photoURL: this.state.photoURL
+    //   });
+    //   this.setState({user: resp.user});
+    //   firebase.firestore().collection('users').doc(resp.user.uid).set({
+    //     displayName: this.state.displayName,
+    //     phoneNumber: this.state.phoneNumber,
+    //     photoURL: this.state.photoURL
+    //   });
+    // })
     .catch((error) => {
       this.text = error.message;
       this.setState({errorText: error.message});
     });
   }
 
-  showhidepass = (e) => {
+  showhidepass = () => {
     // eslint-disable-next-line no-unused-expressions
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
   }
@@ -122,7 +121,7 @@ class SignUp extends Component {
                     onChange={this.handleChange}
                 />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label className="lebel" htmlFor="phoneNumber">{messages.phoneNumber}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
@@ -138,7 +137,7 @@ class SignUp extends Component {
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}
                 />
-            </div>
+            </div> */}
             <div id="wrongUser">
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>

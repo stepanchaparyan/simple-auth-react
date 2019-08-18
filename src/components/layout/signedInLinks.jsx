@@ -9,8 +9,7 @@ import firebase, {storage} from '../../config/fbConfig';
 class SignedInLinks extends Component {
   static propTypes = {
     signOut: PropTypes.func,
-    user: PropTypes.object,
-    phoneNumber: PropTypes.string
+    user: PropTypes.object
   };
 
   constructor(props) {
@@ -19,8 +18,7 @@ class SignedInLinks extends Component {
       tooltipOpen: false,
       image: null,
       progress: 0,
-      show: false,
-      photoURL: null
+      show: false
     };
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -58,7 +56,6 @@ class SignedInLinks extends Component {
     () => {
       storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
         this.updateUserPhotoURL(photoURL);
-        this.setState({photoURL});
         this.setState({image:null});
       });
     });
@@ -97,24 +94,25 @@ class SignedInLinks extends Component {
         </NavItem>
         <img
             id='avatar'
-            src={this.state.photoURL || this.props.user.photoURL}
+            src={this.props.user.photoURL}
             onClick={this.showExtraInfo}
         />
         <div id='about'>
             {this.state.show &&
                 <div id='main'>
                   <div id="one">
-                      <div className='infoText'>First name</div>
+                      <div className='infoText'>Name</div>
                       <div className="userInfo">{this.props.user.displayName}</div>
-                      <div className='infoText'>Phone number</div>
-                      <div className="userInfo">{this.props.phoneNumber}</div>
                       <div className='infoText'>Email</div>
                       <div className="userInfo">{this.props.user.email}</div>
+                      <div className='infoText'>Phone number</div>
+                      <div className="userInfo">{'000000000000'}</div>
+
                   </div>
                   <div id="two">
                       <div className="image-upload">
                           <label htmlFor="fileInput">
-                              <img id='img' src={this.state.photoURL || this.props.user.photoURL} />
+                              <img id='img' src={this.props.user.photoURL} />
                           </label>
                           <input id="fileInput"
                             type="file"
