@@ -32,7 +32,7 @@ $errorText-color: red;
 
 .formSignIn {
     @extend .formSignUp;
-    grid-template-rows: 0.2fr 0.1fr 1.5fr;
+    grid-template-rows: 0.1fr 0.1fr 1.5fr;
 }
 
 .formForgotPassword {
@@ -52,18 +52,22 @@ img {
 .title {
     grid-area: title;
     align-self: center;
-    font-size: 34px;
+    font-size: 30px;
     margin: auto;
 }
 .btnSignIn {
     width: 90%;
-    margin: 10% 5% 5% 5%;    
+    margin: 10% 5% 0 5%;    
+}
+#btn {
+    margin-bottom: 0px !important;
 }
 .form-group {
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 .lebel {
     margin-left: 5% !important;
+    margin-bottom: 0 !important;
 }
 .form-group input, .invalid-feedback {
     width: 90%;

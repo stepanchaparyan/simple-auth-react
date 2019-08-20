@@ -13,8 +13,6 @@ import messages from '../../en.messages';
 import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-//import Button from 'react-bootstrap/Button';
-
 class SignIn extends Component {
   state = {
     email: '',
