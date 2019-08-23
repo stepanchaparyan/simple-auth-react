@@ -30,6 +30,7 @@ class App extends Component {
       } else {
         this.setState({ user: null });
       }
+
       // { user &&
       //   this.getExtraInfoFromFirebaseStorage(user);
       // }

@@ -18,8 +18,8 @@ class MyNavbar extends Component {
   }
 
   render () {
-    const { user, phoneNumber } = this.props;
-    const links = user ? <SignedInLinks user={user} signOut={this.signOut} phoneNumber={phoneNumber}/> : <SignedOutLinks />;
+    const { user } = this.props;
+    const links = user ? <SignedInLinks user={user} signOut={this.signOut} /> : <SignedOutLinks />;
 
     return (
       <Navbar className="p-2 bg-info text-white" light expand="md">

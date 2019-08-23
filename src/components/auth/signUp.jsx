@@ -38,18 +38,17 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    // .then((resp) => {
-    //   resp.user.updateProfile({
-    //     displayName: this.state.displayName,
-    //     photoURL: this.state.photoURL
-    //   });
-    //   this.setState({user: resp.user});
+    .then((resp) => {
+      resp.user.updateProfile({
+        displayName: this.state.displayName,
+        photoURL: this.state.photoURL
+      });
+      this.setState({user: resp.user});
+      window.location.reload();
     //   firebase.firestore().collection('users').doc(resp.user.uid).set({
-    //     displayName: this.state.displayName,
     //     phoneNumber: this.state.phoneNumber,
-    //     photoURL: this.state.photoURL
     //   });
-    // })
+    })
     .catch((error) => {
       this.text = error.message;
       this.setState({errorText: error.message});

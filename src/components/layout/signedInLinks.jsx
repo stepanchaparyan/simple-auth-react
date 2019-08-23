@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { Nav, NavItem, Tooltip, Progress } from 'reactstrap';
+import { Nav, NavItem, Progress, Tooltip } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
-import {FaSignOutAlt} from 'react-icons/fa';
+import {FaSignOutAlt, FaEdit, FaCheck} from 'react-icons/fa';
 import firebase, {storage} from '../../config/fbConfig';
+import ReactTooltip from 'react-tooltip';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -15,24 +16,30 @@ class SignedInLinks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tooltipOpen: false,
+      tooltipSignOutOpen: false,
+      tooltipNameOpen: false,
       image: null,
       progress: 0,
       show: false,
-      photoURL: null
+      displayName: null,
+      email: null,
+      phoneNumber: null,
+      photoURL: null,
+      editable: false,
+      emailUpdateError: null
     };
-    this.toggle = this.toggle.bind(this);
+    this.textInputName = React.createRef();
+    this.textInputEmail = React.createRef();
+    this.textInputPassword = React.createRef();
+
+    this.toggleSignOut = this.toggleSignOut.bind(this);
+    this.toggleName = this.toggleName.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.showExtraInfo = this.showExtraInfo.bind(this);
     this.resetProgress = this.resetProgress.bind(this);
     this.updateUserPhotoURL = this.updateUserPhotoURL.bind(this);
-  }
-
-  toggle() {
-    this.setState({
-      tooltipOpen: !this.state.tooltipOpen
-    });
+    this.confirmNewName = this.confirmNewName.bind(this);
   }
 
   handleChange = e => {
@@ -72,6 +79,38 @@ class SignedInLinks extends Component {
     });
   }
 
+  updateUserDisplayName = (displayName) => {
+    let user = firebase.auth().currentUser;
+    user.updateProfile({
+      displayName: displayName
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  updateUserEmail = (email,password) => {
+    let user = firebase.auth().currentUser;
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+    user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+    }).catch((error) => {
+      this.setState ({
+        emailUpdateError: error.message
+      });
+      console.log('111', error.message);
+    });
+    user.updateEmail(email)
+    .catch((error) => {
+      this.setState ({
+        emailUpdateError: error.message
+      });
+      console.log('222', error.message);
+    });
+  }
+
   showExtraInfo = () => {
     this.setState ({
       show: !this.state.show
@@ -84,6 +123,35 @@ class SignedInLinks extends Component {
     });
   }
 
+  confirmNewName = (e) => {
+    e.preventDefault();
+    this.setState({editable: !this.state.editable});
+    const displayName = this.textInputName.current.value;
+    this.updateUserDisplayName(displayName);
+    this.setState({displayName: displayName});
+  }
+
+  confirmNewEmail = (e) => {
+    e.preventDefault();
+    this.setState({editable: !this.state.editable});
+    const email = this.textInputEmail.current.value;
+    const password = this.textInputPassword.current.value;
+    this.updateUserEmail(email, password);
+    this.setState({email: email});
+  }
+
+  toggleSignOut() {
+    this.setState({
+      tooltipSignOutOpen: !this.state.tooltipSignOutOpen
+    });
+  }
+
+  toggleName() {
+    this.setState({
+      tooltipNameOpen: !this.state.tooltipNameOpen
+    });
+  }
+
   render () {
     console.log(this.props.user);
 
@@ -91,9 +159,17 @@ class SignedInLinks extends Component {
       <Nav pills>
         <NavItem
             id='profileName'
-            className="nav-text">
-            {this.props.user.displayName}
+            className="nav-text text-ellipsis">
+            {this.state.displayName || this.props.user.displayName}
         </NavItem>
+        <Tooltip
+            placement="auto"
+            isOpen={this.state.tooltipNameOpen}
+            target="profileName"
+            toggle={this.toggleName}
+          >
+          {this.state.displayName || this.props.user.displayName}
+        </Tooltip>
         <img
             id='avatar'
             src={this.state.photoURL || this.props.user.photoURL}
@@ -103,12 +179,46 @@ class SignedInLinks extends Component {
             {this.state.show &&
                 <div id='main'>
                   <div id="one">
+
                       <div className='infoText'>Name</div>
-                      <div className="userInfo">{this.props.user.displayName}</div>
+                      { this.state.editable ?
+                      <>
+                        <FaCheck size={20} className="faEdit" onClick={this.confirmNewName} />
+                        <input type="text" className="editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
+                      </> :
+                      <>
+                        <div className="userInfo text-ellipsis"
+                              data-tip={this.state.displayName || this.props.user.displayName}>
+                              <FaEdit size={20} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              {this.state.displayName || this.props.user.displayName}
+                        </div>
+                        <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
+                      </>
+                      }
+                      
                       <div className='infoText'>Email</div>
-                      <div className="userInfo">{this.props.user.email}</div>
-                      <div className='infoText'>Phone number</div>
-                      <div className="userInfo">{'000000000000'}</div>
+                      { this.state.editable ?
+                      <>
+                        <FaCheck size={20} className="faEdit" onClick={this.confirmNewEmail} />
+                        <input type="text" className="editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
+                      </> :
+                      <>
+                        <div className="userInfo text-ellipsis"
+                              data-tip={this.state.email || this.props.user.email}>
+                              <FaEdit size={20} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              {this.state.email || this.props.user.email}
+                        </div>
+                        {this.state.emailUpdateError && <div id='emailErrorMessage'>{this.state.emailUpdateError}</div>}
+                        <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
+                      </>
+                      }
+                    
+                      { this.state.editable &&
+                      <>
+                        <div className='infoText text-ellipsis'>Confirm password</div>
+                        <input type="text" className="editableInput" id='inputPass' ref={this.textInputPassword} defaultValue=''></input>
+                      </>
+                      }
 
                   </div>
                   <div id="two">
@@ -142,10 +252,10 @@ class SignedInLinks extends Component {
             <FaSignOutAlt size={25} />
         </NavItem>
         <Tooltip
-            placement="auto"
-            isOpen={this.state.tooltipOpen}
+            placement="right"
+            isOpen={this.state.tooltipSignOutOpen}
             target="signOut"
-            toggle={this.toggle}
+            toggle={this.toggleSignOut}
           >
           {messages.signOut}
         </Tooltip>
