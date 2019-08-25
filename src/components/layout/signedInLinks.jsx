@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {FaSignOutAlt, FaEdit, FaCheck} from 'react-icons/fa';
 import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
+import { Button } from 'react-components';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -153,7 +154,7 @@ class SignedInLinks extends Component {
   }
 
   render () {
-    console.log(this.props.user);
+    // console.log(this.props.user);
 
     return (
       <Nav pills>
@@ -195,7 +196,7 @@ class SignedInLinks extends Component {
                         <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
                       </>
                       }
-                      
+
                       <div className='infoText'>Email</div>
                       { this.state.editable ?
                       <>
@@ -212,7 +213,7 @@ class SignedInLinks extends Component {
                         <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
                       </>
                       }
-                    
+
                       { this.state.editable &&
                       <>
                         <div className='infoText text-ellipsis'>Confirm password</div>
@@ -237,11 +238,12 @@ class SignedInLinks extends Component {
                           max='100'>
                           {this.state.progress}%
                       </Progress>
-                      <button id='uploadBtn'
+                      <Button className='uploadBtn'
                           onClick={this.handleUpload}
-                          disabled={!this.state.image}>
+                          disabled={!this.state.image}
+                          >
                           Upload
-                      </button>
+                      </Button>
                   </div>
                 </div>
             }

@@ -6,7 +6,7 @@ import validator from 'validator';
 import { FaEye } from 'react-icons/fa';
 import logo from '../../assets/logo2.png';
 import { DebounceInput } from 'react-debounce-input';
-import { Button } from 'reactstrap';
+import { Button } from 'react-components';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
@@ -106,8 +106,8 @@ class SignIn extends Component {
               <div id="wrongUser">
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
-              <div className="form-group" id="btn">
-                <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
+              <div className="form-group">
+                <Button className="btnSign">{messages.submit}</Button>
               </div>
               <Link className="forgotPassword" to="/forgotPassword">{messages.forgotPassword}?</Link>
               <StyledFirebaseAuth

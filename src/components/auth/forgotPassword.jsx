@@ -3,7 +3,7 @@ import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import '../../stylesheets/auth.scss';
 import logo from '../../assets/logo.png';
-import { Button } from 'reactstrap';
+import { Button } from 'react-components';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
@@ -60,8 +60,8 @@ class ForgotPasword extends Component {
                     <div id="wrongUser">
                         { this.state.message ? <p>{'Please check your email'}</p> : null }
                     </div>
-                    <div className="form-group" id="btn">
-                        <Button className="btnSignIn" size="lg" block color="info">{messages.submit}</Button>
+                    <div className="form-group">
+                        <Button className="btnSign">{messages.submit}</Button>
                     </div>
                     </ValidationForm>
             </div>

@@ -81,7 +81,7 @@ label {
     text-align: center;
 }
 
-#uploadBtn {
+.uploadBtn {
     margin: 15px;
     width: 80%;
     margin-left: 10%;
@@ -95,7 +95,7 @@ label {
     color: white;
 }
 
-#uploadBtn:disabled {
+.uploadBtn:disabled {
     opacity: 0.3; 
     cursor: not-allowed;
   }
