@@ -3,7 +3,7 @@ import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import '../../stylesheets/auth.scss';
 import logo from '../../assets/logo.png';
-import { Button } from 'react-components';
+import { Button, Image } from 'react-components';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
@@ -39,7 +39,7 @@ class ForgotPasword extends Component {
             <div className="loginContainer">
             <div className="formForgotPassword">
                 <div className="logo">
-                    <img src={logo} alt="Logo"/>
+                    <Image id='logo' src={logo} alt="Logo" width={180} height={80}/>
                 </div>
                 <div className="title">{messages.forgotPassword}</div>
                 <ValidationForm onSubmit={this.sendEmail}>

@@ -3,10 +3,9 @@ import { Nav, NavItem, Progress, Tooltip } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
-import {FaSignOutAlt, FaEdit, FaCheck} from 'react-icons/fa';
 import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
-import { Button } from 'react-components';
+import { Button, Icon, Image } from 'react-components';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -171,7 +170,10 @@ class SignedInLinks extends Component {
           >
           {this.state.displayName || this.props.user.displayName}
         </Tooltip>
-        <img
+        <Image
+            circle
+            width={40}
+            height={40}
             id='avatar'
             src={this.state.photoURL || this.props.user.photoURL}
             onClick={this.showExtraInfo}
@@ -184,13 +186,13 @@ class SignedInLinks extends Component {
                       <div className='infoText'>Name</div>
                       { this.state.editable ?
                       <>
-                        <FaCheck size={20} className="faEdit" onClick={this.confirmNewName} />
+                        <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewName} />
                         <input type="text" className="editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
                       </> :
                       <>
                         <div className="userInfo text-ellipsis"
                               data-tip={this.state.displayName || this.props.user.displayName}>
-                              <FaEdit size={20} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
                               {this.state.displayName || this.props.user.displayName}
                         </div>
                         <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
@@ -200,13 +202,13 @@ class SignedInLinks extends Component {
                       <div className='infoText'>Email</div>
                       { this.state.editable ?
                       <>
-                        <FaCheck size={20} className="faEdit" onClick={this.confirmNewEmail} />
+                        <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewEmail} />
                         <input type="text" className="editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
                       </> :
                       <>
                         <div className="userInfo text-ellipsis"
                               data-tip={this.state.email || this.props.user.email}>
-                              <FaEdit size={20} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
                               {this.state.email || this.props.user.email}
                         </div>
                         {this.state.emailUpdateError && <div id='emailErrorMessage'>{this.state.emailUpdateError}</div>}
@@ -225,7 +227,12 @@ class SignedInLinks extends Component {
                   <div id="two">
                       <div className="image-upload">
                           <label htmlFor="fileInput">
-                              <img id='img' src={this.state.photoURL || this.props.user.photoURL} />
+                              <Image
+                                  id='uploadImage'
+                                  src={this.state.photoURL || this.props.user.photoURL}
+                                  width={120}
+                                  height={120}
+                              />
                           </label>
                           <input id="fileInput"
                             type="file"
@@ -251,7 +258,7 @@ class SignedInLinks extends Component {
         <NavItem id='signOut'
             onClick={this.props.signOut}
             className="nav-text">
-            <FaSignOutAlt size={25} />
+            <Icon name='sign-out' className='styleFa' size={1.9} />
         </NavItem>
         <Tooltip
             placement="right"

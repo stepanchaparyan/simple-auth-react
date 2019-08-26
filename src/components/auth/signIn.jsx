@@ -3,10 +3,9 @@ import { Redirect, Link } from 'react-router-dom';
 import '../../stylesheets/auth.scss';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import { FaEye } from 'react-icons/fa';
 import logo from '../../assets/logo2.png';
 import { DebounceInput } from 'react-debounce-input';
-import { Button } from 'react-components';
+import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
 import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
@@ -67,7 +66,7 @@ class SignIn extends Component {
         <div className="loginContainer">
         <div className="formSignIn">
             <div className="logo">
-              <img src={logo} alt="Logo" />
+              <Image id='logo' src={logo} alt="Logo" height={20} width={210}/>
             </div>
             <div className="title">{messages.logIn}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
@@ -99,7 +98,7 @@ class SignIn extends Component {
                       }}
                       value={this.state.password}
                       onChange={this.handleChange}
-                      append={<div id="eye" onClick={this.showhidepass}><FaEye /></div>}
+                      append={<div id="eye" onClick={this.showhidepass}><Icon name='eye' className='eye' /> </div>}
                       autoComplete='true'
                   />
               </div>

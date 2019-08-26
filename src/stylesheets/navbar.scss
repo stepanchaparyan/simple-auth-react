@@ -36,21 +36,13 @@ $bgcolor: #17a2b8;
     margin-left: 10% !important;
 }
 
-img {
-    margin: 10px;
-}
-
-#img {
-    width: 110px;
-    margin-top: 8px;
-}
-
 #avatar {
-    height: 40px;
-    width: 40px;
     margin: 5px 10px;
-    border-radius: 20px;
     cursor: pointer;
+}
+
+#uploadImage {
+    margin: 10px;
 }
 
 #about {
@@ -85,14 +77,8 @@ label {
     margin: 15px;
     width: 80%;
     margin-left: 10%;
-    cursor: pointer;
     height: 13%;
-    background-color: $bgcolor;
     font-size: 14px;
-    border-radius: 4px;
-    border: none;
-    overflow: hidden;
-    color: white;
 }
 
 .uploadBtn:disabled {
@@ -136,6 +122,7 @@ label {
 
 .faEdit {
     margin: 0 10px 5px 0;
+    vertical-align: text-top;
 }
 
 .editableInput {

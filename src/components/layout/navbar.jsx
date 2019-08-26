@@ -6,6 +6,7 @@ import '../../stylesheets/navbar.scss';
 import logo from '../../assets/logo2.png';
 import firebase from '../../config/fbConfig';
 import PropTypes from 'prop-types';
+import { Image } from 'react-components';
 
 class MyNavbar extends Component {
   static propTypes = {
@@ -26,9 +27,7 @@ class MyNavbar extends Component {
         <Container>
           <NavbarBrand href="/">
             <div className="iconAndTitle">
-                <div className="logo">
-                    <img src={logo} alt="Logo" />
-                </div>
+                <Image src={logo} alt="Logo" width={200} height={22}/>
             </div>
           </NavbarBrand>
           {links}
