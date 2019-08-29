@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
-import { Container, Navbar, NavbarBrand } from 'reactstrap';
-import '../../stylesheets/navbar.scss';
-import logo from '../../assets/logo2.png';
 import firebase from '../../config/fbConfig';
-import PropTypes from 'prop-types';
 import { Image } from 'react-components';
+import logo from '../../assets/logo2.png';
+import '../../stylesheets/navbar.scss';
 
 class MyNavbar extends Component {
   static propTypes = {

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import '../../stylesheets/auth.scss';
+import DocumentTitle from 'react-document-title';
+import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import logo from '../../assets/logo.png';
 import { DebounceInput } from 'react-debounce-input';
 import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
-import DocumentTitle from 'react-document-title';
-import messages from '../../en.messages';
-import PropTypes from 'prop-types';
 import Constants from '../../constants';
+import messages from '../../en.messages';
+import logo from '../../assets/logo.png';
+import '../../stylesheets/auth.scss';
 
 class SignUp extends Component {
   state = {

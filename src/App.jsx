@@ -5,6 +5,7 @@ import Dashboard from './components/dashboard/dashboard';
 import SignIn from './components/auth/signIn';
 import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
+import PageNotFound from './components/pageNotFound';
 import firebase from './config/fbConfig';
 import { Spinner } from 'react-components';
 
@@ -60,7 +61,9 @@ class App extends Component {
             <Route exact path='/' render={() => <Dashboard user={this.state.user}/>} />
             <Route path='/signin' render={() => <SignIn user={this.state.user}/>} />
             <Route path='/signup' render={() => <SignUp user={this.state.user}/>} />
-            <Route path='/forgotPassword' component={ForgotPassword} />
+            <Route path='/forgotPassword' render={() => <ForgotPassword />} />
+            <Route path='*' render={() => <PageNotFound />} />
+
           </Switch>
         </div>
       : <Spinner />

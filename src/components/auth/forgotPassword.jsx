@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import DocumentTitle from 'react-document-title';
 import validator from 'validator';
+import firebase from '../../config/fbConfig';
+import { Button, Image } from 'react-components';
+import messages from '../../en.messages';
 import '../../stylesheets/auth.scss';
 import logo from '../../assets/logo.png';
-import { Button, Image } from 'react-components';
-import firebase from '../../config/fbConfig';
-import DocumentTitle from 'react-document-title';
-import messages from '../../en.messages';
 
 class ForgotPasword extends Component {
     state = {

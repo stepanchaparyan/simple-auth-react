@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import '../../stylesheets/dashboard.scss';
-import firebase, { storage } from '../../config/fbConfig';
-import { Jumbotron } from 'reactstrap';
 import DocumentTitle from 'react-document-title';
-import Constants from '../../constants';
 import PropTypes from 'prop-types';
+import { Jumbotron } from 'reactstrap';
+import firebase, { storage } from '../../config/fbConfig';
+import Constants from '../../constants';
+import '../../stylesheets/dashboard.scss';
 
 class Dashboard extends Component {
   constructor(props) {

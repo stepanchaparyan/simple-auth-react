@@ -1,11 +1,11 @@
 import React, {Component, Fragment } from 'react';
 import { Nav, NavItem, Progress } from 'reactstrap';
-import '../../stylesheets/navbar.scss';
-import messages from '../../en.messages';
 import PropTypes from 'prop-types';
 import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
+import messages from '../../en.messages';
+import '../../stylesheets/navbar.scss';
 
 class SignedInLinks extends Component {
   static propTypes = {

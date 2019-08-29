@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import '../../stylesheets/auth.scss';
+import { DebounceInput } from 'react-debounce-input';
+import DocumentTitle from 'react-document-title';
+import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import logo from '../../assets/logo2.png';
-import { DebounceInput } from 'react-debounce-input';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
-import DocumentTitle from 'react-document-title';
 import messages from '../../en.messages';
-import PropTypes from 'prop-types';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import logo from '../../assets/logo2.png';
+import '../../stylesheets/auth.scss';
 
 class SignIn extends Component {
   state = {
