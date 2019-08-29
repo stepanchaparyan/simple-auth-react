@@ -6,7 +6,7 @@ import SignIn from './components/auth/signIn';
 import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
 import firebase from './config/fbConfig';
-import Spinner from './components/myComponents/Spinner';
+import { Spinner } from 'react-components';
 
 class App extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class App extends Component {
             <Route path='/forgotPassword' component={ForgotPassword} />
           </Switch>
         </div>
-        : <Spinner />
+      : <Spinner />
       }
       </BrowserRouter>
     );

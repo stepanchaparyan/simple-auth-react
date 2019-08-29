@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import { Nav, NavItem, Progress, Tooltip } from 'reactstrap';
+import React, {Component, Fragment } from 'react';
+import { Nav, NavItem, Progress } from 'reactstrap';
 import '../../stylesheets/navbar.scss';
 import messages from '../../en.messages';
 import PropTypes from 'prop-types';
 import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
-import { Button, Icon, Image } from 'react-components';
+import { Button, Icon, Image, Tooltip } from 'react-components';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -16,8 +16,6 @@ class SignedInLinks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tooltipSignOutOpen: false,
-      tooltipNameOpen: false,
       image: null,
       progress: 0,
       show: false,
@@ -32,8 +30,6 @@ class SignedInLinks extends Component {
     this.textInputEmail = React.createRef();
     this.textInputPassword = React.createRef();
 
-    this.toggleSignOut = this.toggleSignOut.bind(this);
-    this.toggleName = this.toggleName.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.showExtraInfo = this.showExtraInfo.bind(this);
@@ -140,35 +136,20 @@ class SignedInLinks extends Component {
     this.setState({email: email});
   }
 
-  toggleSignOut() {
-    this.setState({
-      tooltipSignOutOpen: !this.state.tooltipSignOutOpen
-    });
-  }
-
-  toggleName() {
-    this.setState({
-      tooltipNameOpen: !this.state.tooltipNameOpen
-    });
-  }
-
   render () {
     // console.log(this.props.user);
 
     return (
       <Nav pills>
-        <NavItem
-            id='profileName'
-            className="nav-text text-ellipsis">
-            {this.state.displayName || this.props.user.displayName}
-        </NavItem>
         <Tooltip
-            placement="auto"
-            isOpen={this.state.tooltipNameOpen}
-            target="profileName"
-            toggle={this.toggleName}
+            position="left"
+            content={this.state.displayName || this.props.user.displayName}            
           >
-          {this.state.displayName || this.props.user.displayName}
+          <NavItem
+              id='profileName'
+              className="nav-text text-ellipsis">
+              {this.state.displayName || this.props.user.displayName}
+          </NavItem>
         </Tooltip>
         <Image
             circle
@@ -185,27 +166,27 @@ class SignedInLinks extends Component {
 
                       <div className='infoText'>Name</div>
                       { this.state.editable ?
-                      <>
+                      <Fragment>
                         <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewName} />
                         <input type="text" className="editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
-                      </> :
-                      <>
+                      </Fragment> :
+                      <Fragment>
                         <div className="userInfo text-ellipsis"
                               data-tip={this.state.displayName || this.props.user.displayName}>
                               <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
                               {this.state.displayName || this.props.user.displayName}
                         </div>
                         <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
-                      </>
+                      </Fragment>
                       }
 
                       <div className='infoText'>Email</div>
                       { this.state.editable ?
-                      <>
+                      <Fragment>
                         <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewEmail} />
                         <input type="text" className="editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
-                      </> :
-                      <>
+                      </Fragment> :
+                      <Fragment>
                         <div className="userInfo text-ellipsis"
                               data-tip={this.state.email || this.props.user.email}>
                               <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
@@ -213,7 +194,7 @@ class SignedInLinks extends Component {
                         </div>
                         {this.state.emailUpdateError && <div id='emailErrorMessage'>{this.state.emailUpdateError}</div>}
                         <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
-                      </>
+                      </Fragment>
                       }
 
                       { this.state.editable &&
@@ -255,18 +236,16 @@ class SignedInLinks extends Component {
                 </div>
             }
         </div>
-        <NavItem id='signOut'
-            onClick={this.props.signOut}
-            className="nav-text">
-            <Icon name='sign-out' className='styleFa' size={1.9} />
-        </NavItem>
+
         <Tooltip
-            placement="right"
-            isOpen={this.state.tooltipSignOutOpen}
-            target="signOut"
-            toggle={this.toggleSignOut}
+            content={messages.signOut}
+            position='bottom'
           >
-          {messages.signOut}
+            <NavItem id='signOut'
+              onClick={this.props.signOut}
+              className="nav-text">
+              <Icon name='sign-out' className='styleFa' size={1.9} />
+            </NavItem>
         </Tooltip>
       </Nav>
     );
