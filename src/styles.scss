@@ -4,27 +4,5 @@
 @import 'stylesheets/auth.scss';
 @import 'stylesheets/dashboard.scss';
 @import 'stylesheets/navbar.scss';
-
-
-html{
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background-size: 100%;
-  background-position: bottom;
-  background-color: white;
-  min-height: 100%;
-}
-
-.pageNotFound {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
-}
-
+@import 'stylesheets/pageNotFound.scss';
 
