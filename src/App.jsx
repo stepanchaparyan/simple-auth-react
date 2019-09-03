@@ -8,6 +8,7 @@ import ForgotPassword from './components/auth/forgotPassword';
 import PageNotFound from './components/pageNotFound';
 import firebase from './config/fbConfig';
 import { Spinner } from 'react-components';
+import './styles.scss';
 
 class App extends Component {
   constructor(props) {

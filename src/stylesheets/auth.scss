@@ -1,7 +1,3 @@
-$mainBg-color: lightslategray;
-$signBg-color: lightgrey;
-$errorText-color: red;
-
 .loginContainer {
     display: grid;
     grid-template-areas: "up up up"
@@ -11,7 +7,7 @@ $errorText-color: red;
     grid-template-rows: 0.3fr 6fr 0.5fr;
     min-height: 92.5vh;    
     background-size: cover;
-    background-color: $mainBg-color;
+    background-color: $auth-BG-gray;
 }
 
 .formSignUp {
@@ -24,8 +20,8 @@ $errorText-color: red;
     font-family: 'Times New Roman', Times, serif;
     font-size: 18px;
     font-weight: bold;
-    color: rgb(48, 46, 46);
-    background-color: $signBg-color;
+    color: $lightBlack;
+    background-color: $auth-BG-lightGray;
     opacity: 0.9;
     border-radius: 10px;
 }
@@ -35,18 +31,9 @@ $errorText-color: red;
     grid-template-rows: 0.1fr 0.1fr 1.5fr;
 }
 
-.formForgotPassword {
-    @extend .formSignUp;
-    grid-template-rows: 0.4fr 0.3fr 1.5fr;
-}
-
 .logo {
     grid-area: logo;
-    align-self: center;
     margin: auto;
-}
-
-#logo {
     margin-top: 10px;
 }
 
@@ -56,94 +43,86 @@ $errorText-color: red;
     font-size: 30px;
     margin: auto;
 }
-.btnSign {
-    width: 90%;
-    margin: 10% 5% 0 5%;
-    padding: 9px 0;
-}
 
 .form-group {
     margin-bottom: 3%;
+    .lebel {
+        margin-left: 5% !important;
+        margin-bottom: 0 !important;
+    }
+    .input-group-append {
+        background-color: $midgray;
+        border: 1px solid $lightgray;
+        border-radius: 0 4px 4px 0;
+        #eye {
+            padding: 4px 7px;
+            .eye {
+                margin-top: 2px;
+            }
+        }
+    }
+    .btnSign {
+        width: 90%;
+        margin: 10% 5% 0 5%;
+        padding: 9px 0;
+    }
 }
-.lebel {
-    margin-left: 5% !important;
-    margin-bottom: 0 !important;
-}
+
 .form-group input, .invalid-feedback {
     width: 90%;
     margin: 0 5% 0 5%;
 }
-.input-group-append {
-    background-color: #E8E8E8;
-    border: 1px solid lightgray;
-    border-radius: 0 4px 4px 0;
-}
+
 #password {
     width: 85%;
     margin: 0 0 0 5%;
     flex: none;
     border-radius: 4px 0 0 4px;
 }
-#eye {
-    padding: 4px 7px;
-}
-.eye {
-    margin-top: 2px;
-}
+
 #wrongUser {
     color: $errorText-color;
     margin: 0 5%;
     font-size: 16px;
 }
+
+.formForgotPassword {
+    @extend .formSignUp;
+    grid-template-rows: 0.4fr 0.3fr 1.5fr;
+}
+
 .forgotPassword {
     grid-area: forgotPassword;
     margin-left: 7%;
     font-size: 16px;
     cursor: pointer;
-    color: rgb(44, 83, 83)
+    color: $blueGreen;
 }
 
-.forgotPassTitle {
-    font-size: 30px;
-    align-self: center;
-    margin: auto;
-    margin-bottom: 7%;
-}
-.lebelForgotPass {
-    margin-left: 5% !important;
-    font-weight: 18px;
-    color: rgb(56, 54, 54);
-}
 .socialAuth {
     margin-top: 50px;
+    .firebaseui-container {
+        max-width: none !important;
+        .firebaseui-card-content {
+            padding: 0px !important;
+            & > * {
+                margin: 0 5% !important;
+                width: 90% !important;
+            }
+            .firebaseui-idp-button {
+                max-width: none !important;
+                min-height: none !important;
+                width: 100% !important;
+                border-radius: 5px !important;
+                height: 48px !important;
+                padding: 0px !important
+            }
+            .firebaseui-idp-icon {
+                margin-left: 15px;
+            }
+        }
+    }
 }
-
-.firebaseui-container {
-    max-width: none !important;
-}
-
-.firebaseui-idp-icon {
-    margin-left: 15px;
-}
-
-.firebaseui-idp-button {
-    max-width: none !important;
-    min-height: none !important;
-    width: 100% !important;
-    border-radius: 5px !important;
-    height: 48px !important;
-    padding: 0px !important
-}
-
-.firebaseui-card-content {
-    padding: 0px !important;
-}
-
-.firebaseui-card-content > * {
-    margin: 0 5% !important;
-    width: 90% !important;
-}
-
 
 @media screen and (max-width: 1700px) {
     #password {width: 83%; }    
@@ -176,7 +155,7 @@ $errorText-color: red;
 } 
 @media screen and (max-width: 650px) {
     #password {width: 90%; }    
-    .input-group-append {display: none; }
+    .input-group-append {display: none !important; }
     .loginContainer {grid-template-columns: 20% auto 20%; }    
 } 
 @media screen and (max-width: 600px) {

@@ -10,7 +10,7 @@ import firebase from '../../config/fbConfig';
 import Constants from '../../constants';
 import messages from '../../en.messages';
 import logo from '../../assets/logo.png';
-import '../../stylesheets/auth.scss';
+import '../../styles.scss';
 
 class SignUp extends Component {
   state = {

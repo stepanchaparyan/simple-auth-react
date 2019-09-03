@@ -5,7 +5,7 @@ import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
 import messages from '../../en.messages';
-import '../../stylesheets/navbar.scss';
+import '../../styles.scss';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -146,8 +146,7 @@ class SignedInLinks extends Component {
             content={this.state.displayName || this.props.user.displayName}            
           >
           <NavItem
-              id='profileName'
-              className="nav-text text-ellipsis">
+              className="nav__profileName text-ellipsis">
               {this.state.displayName || this.props.user.displayName}
           </NavItem>
         </Tooltip>
@@ -155,78 +154,75 @@ class SignedInLinks extends Component {
             circle
             width={40}
             height={40}
-            id='avatar'
+            className='nav__avatar'
             src={this.state.photoURL || this.props.user.photoURL}
             onClick={this.showExtraInfo}
         />
-        <div id='about'>
+        <div className='navbar__profileInfo'>
             {this.state.show &&
-                <div id='main'>
-                  <div id="one">
-
-                      <div className='infoText'>Name</div>
+                <div className='navbar__profileInfo__full'>
+                  <div className='navbar__profileInfo__leftPart'>
+                      <div className='navbar__profileInfo__leftPart__title'>Name</div>
                       { this.state.editable ?
                       <Fragment>
-                        <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewName} />
-                        <input type="text" className="editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
+                        <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
+                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
                       </Fragment> :
                       <Fragment>
-                        <div className="userInfo text-ellipsis"
+                        <div className="text-ellipsis"
                               data-tip={this.state.displayName || this.props.user.displayName}>
-                              <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
                               {this.state.displayName || this.props.user.displayName}
                         </div>
-                        <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
+                        <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-
-                      <div className='infoText'>Email</div>
+                      <div className='navbar__profileInfo__leftPart__title'>Email</div>
                       { this.state.editable ?
                       <Fragment>
-                        <Icon name='check' size={1.2} className="faEdit" onClick={this.confirmNewEmail} />
-                        <input type="text" className="editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
+                        <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewEmail} />
+                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
                       </Fragment> :
                       <Fragment>
-                        <div className="userInfo text-ellipsis"
+                        <div className="text-ellipsis"
                               data-tip={this.state.email || this.props.user.email}>
-                              <Icon name='edit' size={1.2} className="faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
+                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
                               {this.state.email || this.props.user.email}
                         </div>
-                        {this.state.emailUpdateError && <div id='emailErrorMessage'>{this.state.emailUpdateError}</div>}
-                        <ReactTooltip className='tooltipClass' place="left" type="info" effect="solid" />
+                        {this.state.emailUpdateError && <div className='navbar__profileInfo__emailErrorMessage'>{this.state.emailUpdateError}</div>}
+                        <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-
                       { this.state.editable &&
                       <>
-                        <div className='infoText text-ellipsis'>Confirm password</div>
-                        <input type="text" className="editableInput" id='inputPass' ref={this.textInputPassword} defaultValue=''></input>
+                        <div className='navbar__profileInfo__leftPart__title'>Confirm password</div>
+                        <input type="text" className='navbar__profileInfo__editableInput navbar__profileInfo__editableInput--margin' ref={this.textInputPassword} defaultValue=''></input>
                       </>
                       }
-
                   </div>
-                  <div id="two">
-                      <div className="image-upload">
-                          <label htmlFor="fileInput">
+                  <div className="navbar__profileInfo__rightPart">
+                      <Fragment>
+                          <label htmlFor="navbar__profileInfo__fileInput">
                               <Image
-                                  id='uploadImage'
+                                  className='navbar__profileInfo__uploadingImage'
                                   src={this.state.photoURL || this.props.user.photoURL}
                                   width={120}
                                   height={120}
                               />
                           </label>
-                          <input id="fileInput"
+                          <input className="navbar__profileInfo__fileInput"
+                            id="navbar__profileInfo__fileInput"
                             type="file"
                             onChange={this.handleChange}
                           />
-                      </div>
-                      <Progress id='progressBar'
+                      </Fragment>
+                      <Progress
                           color="info"
                           value={this.state.progress}
                           max='100'>
                           {this.state.progress}%
                       </Progress>
-                      <Button className='uploadBtn'
+                      <Button className='navbar__profileInfo__uploadBtn'
                           onClick={this.handleUpload}
                           disabled={!this.state.image}
                           >
@@ -236,15 +232,13 @@ class SignedInLinks extends Component {
                 </div>
             }
         </div>
-
         <Tooltip
             content={messages.signOut}
             position='bottom'
           >
-            <NavItem id='signOut'
-              onClick={this.props.signOut}
-              className="nav-text">
-              <Icon name='sign-out' className='styleFa' size={1.9} />
+            <NavItem
+              onClick={this.props.signOut} >
+              <Icon name='sign-out' size={1.9} />
             </NavItem>
         </Tooltip>
       </Nav>

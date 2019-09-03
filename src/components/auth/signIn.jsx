@@ -10,7 +10,7 @@ import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
 import messages from '../../en.messages';
 import logo from '../../assets/logo2.png';
-import '../../stylesheets/auth.scss';
+import '../../styles.scss';
 
 class SignIn extends Component {
   state = {

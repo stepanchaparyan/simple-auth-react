@@ -1,116 +1,106 @@
-$bgcolor: #17a2b8;
-
-.nav-text {
+.navbar__navItem__navLink--text {
     margin: 0 20px;
     text-decoration: none !important;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.nav-text:hover {
-    color: black !important;
-}
-
-#profileName {
     font-size: 18px;
     font-weight: bold;
-    cursor: default;
-}
-
-.nav {
-    margin-right: 2% !important;
-    align-items: center;
-}
-
-.iconAndTitle {
-    display: flex;
-    margin-right: auto;
-}
-
-.nav-item {
-    margin: 10px;
+    cursor: pointer;
+    color: $white;
+    &:hover {
+        color: $black !important;
+    }
 }
 
 .container {
     margin-left: 10% !important;
+    .nav {
+        align-items: center;
+        .nav__profileName {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .nav__avatar {
+            margin: 5px 15px;
+            cursor: pointer;
+        }
+    }
 }
 
-#avatar {
-    margin: 5px 10px;
-    cursor: pointer;
-}
-
-#uploadImage {
-    margin: 10px;
-}
-
-#about {
+.navbar__profileInfo {
     display: block;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: $verylightgray;
     min-width: 260px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     top: 76px;
     right: 25px;
-    color: black;
+    color: $black;
     width: 400px;
     height: auto;
-}
+    .navbar__profileInfo__full {
+        display: flex;
+        justify-content: center;
+        border-radius: 4px;
+        box-shadow: 2px 4px 5px 4px $gray;
+        .navbar__profileInfo__leftPart {
+            margin-top: 10px;
+            margin-bottom: 7px;
+            .navbar__profileInfo__leftPart__title {
+            font-weight: bold;
+            color: $appColor;
+            margin-top: 8px;
+            }
+            .navbar__profileInfo__faEdit {
+                margin: 0 10px 5px 0;
+                vertical-align: text-top;
+            }
+            .navbar__profileInfo__editableInput {
+                border-width: thin;
+                border-style: outset;
+                border-color: $appColor;
+                border-radius: 4px;
+                outline: none;
+                padding-left: 2px;
+            }
+            .navbar__profileInfo__editableInput--margin {
+                margin-left: 30px;
+            }
+            .navbar__profileInfo__editableInput__tooltipClass {
+                color: $white !important;
+                background-color: $appColor !important;
+            }
+            .navbar__profileInfo__emailErrorMessage {
+                color: $red;
+                font-size: 12px;
+                margin-top: 5px;
+                max-width: 220px;
+            }            
+        }
 
-#fileInput {
-    width: 0;
-    display: none;
-    margin: 5px;
-}
-
-label {
-    cursor: pointer;
-}
-
-.image-upload {
-    text-align: center;
-}
-
-.uploadBtn {
-    margin: 15px;
-    width: 80%;
-    margin-left: 10%;
-    height: 13%;
-    font-size: 14px;
-}
-
-.uploadBtn:disabled {
-    opacity: 0.3; 
-    cursor: not-allowed;
-  }
-
-.progress {
-    width: 80%;
-    margin-left: 10%;
-}
-
-#main {
-    display: flex;
-    justify-content: center;
-    border-radius: 4px;
-    box-shadow: 2px 4px 5px 4px gray;
-}
-
-#one {
-    margin-top: 10px;
-    margin-bottom: 7px;
-}
-
-.infoText {
-    font-weight: bold;
-    color: #1a8596;
-    margin-top: 8px;
-}
-
-.userInfo {
-    color: black;
+        .navbar__profileInfo__rightPart {
+            .navbar__profileInfo__uploadingImage {
+                margin: 10px;
+            }
+            .navbar__profileInfo__fileInput {
+                display: none;
+            }
+            .progress {
+                width: 80%;
+                margin-left: 10%;
+            }
+            .navbar__profileInfo__uploadBtn {
+                margin: 15px;
+                width: 80%;
+                margin-left: 10%;
+                height: 13%;
+                font-size: 14px;
+                &:disabled {
+                    opacity: 0.3; 
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
 }
 
 .text-ellipsis {
@@ -118,37 +108,4 @@ label {
     text-overflow: ellipsis;
     white-space: nowrap; 
     max-width: 230px;
-}
-
-.faEdit {
-    margin: 0 10px 5px 0;
-    vertical-align: text-top;
-}
-
-.editableInput {
-    border-width: thin;
-    border-style: outset;
-    border-color: $bgcolor;
-    border-radius: 4px;
-    outline: none;
-}
-
-#inputPass {
-    margin-left: 30px;
-}
-
-.tooltipClass {
-    color: white !important;
-    background-color: $bgcolor !important;
-}
-
-#emailErrorMessage {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    max-width: 220px;
-}
-
-.inputContainer {
-    display: flex;
 }

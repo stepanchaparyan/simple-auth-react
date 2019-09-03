@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { Jumbotron } from 'reactstrap';
 import firebase, { storage } from '../../config/fbConfig';
 import Constants from '../../constants';
-import '../../stylesheets/dashboard.scss';
+// import '../../stylesheets/dashboard.scss';
+import '../../styles.scss';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -75,9 +76,9 @@ class Dashboard extends Component {
       <DocumentTitle title='Simple Auth App - Dashboard'>
         <div className="dashboard">
           <Jumbotron>
-            <h1 className="display-5">Hello, everyone!</h1>
-            <p className="lead">Information page about signed user</p>
-            <hr className="my-4" />
+            <h1 className="dashboard__text--lg">Hello, everyone!</h1>
+            <p className="dashboard__text--sm">Information page about signed user</p>
+            <hr />
           </Jumbotron>
         </div>
       </DocumentTitle>

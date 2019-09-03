@@ -1,24 +1,17 @@
-$bgcolor: #17a2b8;
-
 .dashboard {
     background-color: #F5F7F8;
     margin: 0 !important;
     padding: 1% 10% 10% 8%;
     height: 91vh;
-}
-.infoText {
-    font-weight: bold;
-    color: #1a8596;
+    .jumbotron {
+        padding: 4% !important;
+    }
+    &__text--lg {
+
+    }
+    &__text--sm {
+        font-size: 16px;
+    }
 }
 
-.userInfo {
-    color: black;
-}
 
-.jumbotron {
-    padding: 4% !important;
-}
-
-.lead {
-    margin-bottom: 0 !important
-}

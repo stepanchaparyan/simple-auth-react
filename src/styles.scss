@@ -1,4 +1,10 @@
-@import "~font-awesome/css/font-awesome.css";
+@import '~font-awesome/css/font-awesome.css';
+
+@import 'stylesheets/variables.scss';
+@import 'stylesheets/auth.scss';
+@import 'stylesheets/dashboard.scss';
+@import 'stylesheets/navbar.scss';
+
 
 html{
   min-height: 100%;

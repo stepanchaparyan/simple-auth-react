@@ -5,7 +5,7 @@ import validator from 'validator';
 import firebase from '../../config/fbConfig';
 import { Button, Image } from 'react-components';
 import messages from '../../en.messages';
-import '../../stylesheets/auth.scss';
+import '../../styles.scss';
 import logo from '../../assets/logo.png';
 
 class ForgotPasword extends Component {
