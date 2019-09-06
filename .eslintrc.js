@@ -66,6 +66,7 @@ module.exports = {
         'no-unsafe-finally': 1,
         'no-useless-call': 1,
         'no-self-compare': 2,
-        'no-unused-vars': 1
+        'no-unused-vars': 1,
+        'no-debugger': 1
     }
 };

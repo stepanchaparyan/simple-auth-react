@@ -96,7 +96,6 @@ class SignedInLinks extends Component {
       this.setState ({
         emailUpdateError: error.message
       });
-      console.log('111', error.message);
     });
     user.updateEmail(email)
     .catch((error) => {
@@ -143,7 +142,7 @@ class SignedInLinks extends Component {
       <Nav pills>
         <Tooltip
             position="left"
-            content={this.state.displayName || this.props.user.displayName}            
+            content={this.state.displayName || this.props.user.displayName}
           >
           <NavItem
               className="nav__profileName text-ellipsis">
@@ -194,10 +193,10 @@ class SignedInLinks extends Component {
                       </Fragment>
                       }
                       { this.state.editable &&
-                      <>
+                      <Fragment>
                         <div className='navbar__profileInfo__leftPart__title'>Confirm password</div>
                         <input type="text" className='navbar__profileInfo__editableInput navbar__profileInfo__editableInput--margin' ref={this.textInputPassword} defaultValue=''></input>
-                      </>
+                      </Fragment>
                       }
                   </div>
                   <div className="navbar__profileInfo__rightPart">

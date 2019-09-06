@@ -3,9 +3,11 @@ import { Redirect } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { Jumbotron } from 'reactstrap';
-import firebase, { storage } from '../../config/fbConfig';
+import { storage } from '../../config/fbConfig';
 import Constants from '../../constants';
-// import '../../stylesheets/dashboard.scss';
+import messages from '../../en.messages';
+import ReactPlayer from 'react-player';
+import UploadSection from './uploadSection';
 import '../../styles.scss';
 
 class Dashboard extends Component {
@@ -27,22 +29,28 @@ class Dashboard extends Component {
     user: PropTypes.object
   };
 
-  getExtraInfo = () => {
-    const uid = this.props.user.uid ;
-    console.log(uid);
-    firebase.firestore().collection('users').doc(uid).get()
-    .then((doc) => {
-      doc.data();
-      this.setState({
-          displayName: doc.data().displayName,
-          phoneNumber: doc.data().phoneNumber,
-          firstName: doc.data().firstName
-      });
-    });
+  showExtraInfo = () => {
     this.setState ({
       show: !this.state.show
     });
   }
+
+  // getExtraInfo = () => {
+  //   const uid = this.props.user.uid ;
+  //   console.log(uid);
+  //   firebase.firestore().collection('users').doc(uid).get()
+  //   .then((doc) => {
+  //     doc.data();
+  //     this.setState({
+  //         displayName: doc.data().displayName,
+  //         phoneNumber: doc.data().phoneNumber,
+  //         firstName: doc.data().firstName
+  //     });
+  //   });
+  //   this.setState ({
+  //     show: !this.state.show
+  //   });
+  // }
 
   handleChange = e => {
     if (e.target.files[0]) {
@@ -75,11 +83,27 @@ class Dashboard extends Component {
     return (
       <DocumentTitle title='Simple Auth App - Dashboard'>
         <div className="dashboard">
-          <Jumbotron>
-            <h1 className="dashboard__text--lg">Hello, everyone!</h1>
-            <p className="dashboard__text--sm">Information page about signed user</p>
-            <hr />
-          </Jumbotron>
+            <Jumbotron>
+              <h1 className="dashboard__text--lg">{messages['Hello, everyone!']}</h1>
+              <p className="dashboard__text--sm">{messages['Information page about signed user']}</p>
+              <hr />
+              <div className='showFavorites' onClick={this.showExtraInfo}>{messages['Show my favorites']}</div>
+            </Jumbotron>
+            {this.state.show &&
+              <div className='dashboard__favorites'>
+                  <UploadSection imageSource='Painter' user={user} />
+                  <UploadSection imageSource='Singer' user={user} />
+                  <div>
+                      <p className='favorite-section-title'>{messages['My favorite song']}</p>
+                      <ReactPlayer
+                          url='https://www.youtube.com/watch?v=PfAWReBmxEs'
+                          controls
+                          width={200}
+                          height={200}
+                      />
+                  </div>
+              </div>
+            }
         </div>
       </DocumentTitle>
     );

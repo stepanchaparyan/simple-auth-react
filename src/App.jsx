@@ -64,7 +64,6 @@ class App extends Component {
             <Route path='/signup' render={() => <SignUp user={this.state.user}/>} />
             <Route path='/forgotPassword' render={() => <ForgotPassword />} />
             <Route path='*' render={() => <PageNotFound />} />
-
           </Switch>
         </div>
       : <Spinner />
