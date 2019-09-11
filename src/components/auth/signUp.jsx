@@ -6,7 +6,7 @@ import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form
 import validator from 'validator';
 import { DebounceInput } from 'react-debounce-input';
 import { Button, Image, Icon } from 'react-components';
-import firebase from '../../config/fbConfig';
+import firebase, { storage } from '../../config/fbConfig';
 import Constants from '../../constants';
 import messages from '../../en.messages';
 import logo from '../../assets/logo.png';
@@ -43,10 +43,16 @@ class SignUp extends Component {
         photoURL: this.state.photoURL
       });
       this.setState({user: resp.user});
-      window.location.reload();
-    //   firebase.firestore().collection('users').doc(resp.user.uid).set({
-    //     phoneNumber: this.state.phoneNumber,
-    //   });
+      firebase.firestore().collection('users').doc(resp.user.uid).set({
+        created: new Date(),
+        displayName: this.state.displayName,
+        email: this.state.email,
+        phoneNumber: this.state.phoneNumber,
+        photoURL: this.state.photoURL,
+        favSingerPhotoURL: this.state.photoURL,
+        favPainterPhotoURL: this.state.photoURL
+      });
+      setTimeout( function () { window.location.reload(); },1000);
     })
     .catch((error) => {
       this.text = error.message;

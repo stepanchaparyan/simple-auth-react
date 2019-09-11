@@ -39,7 +39,7 @@
     height: auto;
     .navbar__profileInfo__full {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         border-radius: 4px;
         box-shadow: 2px 4px 5px 4px $gray;
         .navbar__profileInfo__leftPart {

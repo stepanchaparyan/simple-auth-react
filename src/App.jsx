@@ -32,26 +32,12 @@ class App extends Component {
       } else {
         this.setState({ user: null });
       }
-
-      // { user &&
-      //   this.getExtraInfoFromFirebaseStorage(user);
-      // }
-    });
-  }
-
-  getExtraInfoFromFirebaseStorage = (user) => {
-    const uid = user.uid;
-    firebase.firestore().collection('users').doc(uid).get()
-    .then((doc) => {
-      doc.data();
-      this.setState({
-          phoneNumber: doc.data().phoneNumber
-      });
     });
   }
 
   render() {
     const loading = this.state.loading;
+    // console.log('app ', this.state.user);
 
     return (
       <BrowserRouter>
@@ -66,7 +52,7 @@ class App extends Component {
             <Route path='*' render={() => <PageNotFound />} />
           </Switch>
         </div>
-      : <Spinner />
+      : <Spinner className={'appSpinner'}/>
       }
       </BrowserRouter>
     );

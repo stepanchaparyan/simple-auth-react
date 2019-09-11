@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
 import messages from '../../en.messages';
 import '../../styles.scss';
+import Constants from '../../constants';
 
 class SignedInLinks extends Component {
   static propTypes = {
@@ -38,6 +39,18 @@ class SignedInLinks extends Component {
     this.confirmNewName = this.confirmNewName.bind(this);
   }
 
+  showExtraInfo = () => {
+    this.setState ({
+      show: !this.state.show
+    });
+  }
+
+  resetProgress = () => {
+    this.setState ({
+      progress: 0
+    });
+  }
+
   handleChange = e => {
     if (e.target.files[0]) {
       const image = e.target.files[0];
@@ -47,8 +60,9 @@ class SignedInLinks extends Component {
   }
 
   handleUpload = () => {
+    const uid = this.props.user.uid;
     const {image} = this.state;
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    const uploadTask = storage.ref(`${uid}/${image.name}`).put(image);
     uploadTask.on('state_changed',
     (snapshot) => {
       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -58,8 +72,11 @@ class SignedInLinks extends Component {
       console.log(error);
     },
     () => {
-      storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
+      storage.ref(uid).child(image.name).getDownloadURL().then(photoURL => {
         this.updateUserPhotoURL(photoURL);
+        firebase.firestore().collection('users').doc(uid).update({
+          photoURL: photoURL
+        });
         this.setState({photoURL});
         this.setState({image:null});
       });
@@ -75,7 +92,7 @@ class SignedInLinks extends Component {
     });
   }
 
-  updateUserDisplayName = (displayName) => {
+  updateAuthUserDisplayName = (displayName) => {
     let user = firebase.auth().currentUser;
     user.updateProfile({
       displayName: displayName
@@ -85,7 +102,26 @@ class SignedInLinks extends Component {
     });
   }
 
-  updateUserEmail = (email,password) => {
+  updateFirestoreUserDisplayName = (displayName) => {
+    const uid = this.props.user.uid;
+    firebase.firestore().collection('users').doc(uid).update({
+        displayName: displayName
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  confirmNewName = (e) => {
+    e.preventDefault();
+    this.setState({editable: !this.state.editable});
+    const displayName = this.textInputName.current.value;
+    this.setState({displayName: displayName});
+    this.updateAuthUserDisplayName(displayName);
+    this.updateFirestoreUserDisplayName(displayName);
+  }
+
+  updateAuthUserEmail = (email,password) => {
     let user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(
       user.email,
@@ -102,28 +138,18 @@ class SignedInLinks extends Component {
       this.setState ({
         emailUpdateError: error.message
       });
-      console.log('222', error.message);
+      console.log(error.message);
     });
   }
 
-  showExtraInfo = () => {
-    this.setState ({
-      show: !this.state.show
+  updateFirestoreUserEmail = (email) => {
+    const uid = this.props.user.uid;
+    firebase.firestore().collection('users').doc(uid).update({
+        email: email
+    })
+    .catch(function(error) {
+      console.log(error);
     });
-  }
-
-  resetProgress = () => {
-    this.setState ({
-      progress: 0
-    });
-  }
-
-  confirmNewName = (e) => {
-    e.preventDefault();
-    this.setState({editable: !this.state.editable});
-    const displayName = this.textInputName.current.value;
-    this.updateUserDisplayName(displayName);
-    this.setState({displayName: displayName});
   }
 
   confirmNewEmail = (e) => {
@@ -131,13 +157,13 @@ class SignedInLinks extends Component {
     this.setState({editable: !this.state.editable});
     const email = this.textInputEmail.current.value;
     const password = this.textInputPassword.current.value;
-    this.updateUserEmail(email, password);
     this.setState({email: email});
+    this.updateAuthUserEmail(email, password);
+    this.updateFirestoreUserEmail(email);
   }
 
   render () {
-    // console.log(this.props.user);
-
+    console.log(this.props.user);
     return (
       <Nav pills>
         <Tooltip
@@ -154,14 +180,14 @@ class SignedInLinks extends Component {
             width={40}
             height={40}
             className='nav__avatar'
-            src={this.state.photoURL || this.props.user.photoURL}
+            src={this.state.photoURL || this.props.user.photoURL || Constants.photoURL}
             onClick={this.showExtraInfo}
         />
         <div className='navbar__profileInfo'>
             {this.state.show &&
                 <div className='navbar__profileInfo__full'>
                   <div className='navbar__profileInfo__leftPart'>
-                      <div className='navbar__profileInfo__leftPart__title'>Name</div>
+                      <div className='navbar__profileInfo__leftPart__title'>{messages.name}</div>
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
@@ -176,7 +202,7 @@ class SignedInLinks extends Component {
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-                      <div className='navbar__profileInfo__leftPart__title'>Email</div>
+                      <div className='navbar__profileInfo__leftPart__title'>{messages.email}</div>
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewEmail} />
@@ -194,7 +220,7 @@ class SignedInLinks extends Component {
                       }
                       { this.state.editable &&
                       <Fragment>
-                        <div className='navbar__profileInfo__leftPart__title'>Confirm password</div>
+                        <div className='navbar__profileInfo__leftPart__title'>{messages.confirmPassword}</div>
                         <input type="text" className='navbar__profileInfo__editableInput navbar__profileInfo__editableInput--margin' ref={this.textInputPassword} defaultValue=''></input>
                       </Fragment>
                       }
@@ -225,7 +251,7 @@ class SignedInLinks extends Component {
                           onClick={this.handleUpload}
                           disabled={!this.state.image}
                           >
-                          Upload
+                          {messages.upload}
                       </Button>
                   </div>
                 </div>

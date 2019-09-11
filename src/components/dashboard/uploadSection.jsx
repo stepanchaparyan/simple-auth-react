@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Image } from 'react-components';
+import { Button, Image, Spinner } from 'react-components';
 import { Progress } from 'reactstrap';
-import { storage } from '../../config/fbConfig';
-import Constants from '../../constants';
+import firebase, { storage } from '../../config/fbConfig';
 import messages from '../../en.messages';
 import '../../styles.scss';
 
@@ -11,12 +10,10 @@ class UploadSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayName: '',
-      phoneNumber: '',
       image: null,
-      photoURL: null,
       progress: 0,
-      show: false
+      favSingerPhotoURL: '',
+      favPainterPhotoURL: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
@@ -57,22 +54,37 @@ class UploadSection extends Component {
     },
     () => {
       storage.ref(uid).child(imageSource).getDownloadURL().then(url => {
-        this.setState(() => ({photoURL: url}));
+        firebase.firestore().collection('users').doc(uid).update({
+          [`fav${imageSource}PhotoURL`]: url
+        });
+        this.setState(() => ({[`fav${imageSource}PhotoURL`]: url}));
       });
     });
   }
 
+  componentDidMount = () => {
+      const imageSource = this.props.imageSource;
+      firebase.firestore().collection('users').doc(this.props.user.uid).get()
+      .then((doc) => {
+        doc.data();
+        this.setState({
+          [`fav${imageSource}PhotoURL`]: doc.data()[`fav${imageSource}PhotoURL`]
+        });
+      });
+  }
+
   render() {
-    // console.log(this.props);
     const { imageSource } = this.props;
     return (
-      <div>
+      <div className='imageContainer'>
           <p className='favorite-section-title'>{messages['My favorite ']} {imageSource}</p>
           <div>
+          { this.state[`fav${imageSource}PhotoURL`] ?
+            <div>
               <label htmlFor={imageSource}>
                   <Image
-                      id='uploadImage'
-                      src={this.state.photoURL || Constants[imageSource]}
+                      className='uploadImage'
+                      src={this.state[`fav${imageSource}PhotoURL`]}
                       width={180}
                       height={140}
                   />
@@ -83,6 +95,9 @@ class UploadSection extends Component {
                 type="file"
                 onChange={this.handleChange}
               />
+          </div>
+          : <Spinner size={15} className={'uploadSpinner'}/>
+          }
           </div>
           <Progress
               className='dashboard-progress'

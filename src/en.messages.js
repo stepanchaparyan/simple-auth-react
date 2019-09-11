@@ -11,6 +11,10 @@ module.exports = {
     signOut: 'Sign Out',
     signIn: 'Sign In',
 
+    name: 'Name',
+    confirmPassword: 'Confirm password',
+    upload: 'Upload',
+
     'Hello, everyone!': 'Hello, everyone!',
     'Information page about signed user': 'Information page about signed user',
     'Show my favorites': 'Show my favorites',
