@@ -8,7 +8,7 @@ import validator from 'validator';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
-import messages from '../../en.messages';
+import M from '../../Messages';
 import logo from '../../assets/logo2.png';
 import '../../styles.scss';
 
@@ -68,10 +68,10 @@ class SignIn extends Component {
             <div className="logo">
               <Image id='logo' src={logo} alt="Logo" height={20} width={210}/>
             </div>
-            <div className="title">{messages.logIn}</div>
+            <div className="title">{M.get('logIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
               <div className="form-group">
-                  <label className="lebel" htmlFor="email">{messages.email}</label>
+                  <label className="lebel" htmlFor="email">{M.get('email')}</label>
                   <DebounceInput element={TextInput}
                       debounceTimeout={500}
                       name="email"
@@ -84,7 +84,7 @@ class SignIn extends Component {
                   />
               </div>
               <div className="form-group">
-                  <label className="lebel" htmlFor="password">{messages.password}</label>
+                  <label className="lebel" htmlFor="password">{M.get('password')}</label>
                   <DebounceInput element={TextInputGroup}
                       debounceTimeout={500}
                       name="password"
@@ -106,9 +106,9 @@ class SignIn extends Component {
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
               <div className="form-group">
-                <Button className="btnSign">{messages.submit}</Button>
+                <Button className="btnSign">{M.get('submit')}</Button>
               </div>
-              <Link className="forgotPassword" to="/forgotPassword">{messages.forgotPassword}?</Link>
+              <Link className="forgotPassword" to="/forgotPassword">{M.get('forgotPassword')}?</Link>
               <StyledFirebaseAuth
                 uiConfig={this.uiConfig}
                 firebaseAuth={firebase.auth()}

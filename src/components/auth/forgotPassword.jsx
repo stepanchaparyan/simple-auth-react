@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import validator from 'validator';
 import firebase from '../../config/fbConfig';
 import { Button, Image } from 'react-components';
-import messages from '../../en.messages';
+import M from '../../en.messages';
 import '../../styles.scss';
 import logo from '../../assets/logo.png';
 
@@ -41,10 +41,10 @@ class ForgotPasword extends Component {
                 <div className="logo">
                     <Image id='logo' src={logo} alt="Logo" width={180} height={80}/>
                 </div>
-                <div className="title">{messages.forgotPassword}</div>
+                <div className="title">{M.get('forgotPassword')}</div>
                 <ValidationForm onSubmit={this.sendEmail}>
                     <div className="form-group">
-                        <label className="lebel" htmlFor="email">{messages.resetPassword}</label>
+                        <label className="lebel" htmlFor="email">{M.get('resetPassword')}</label>
                         <TextInput name="email"
                                    id="email"
                                    type="email"
@@ -61,7 +61,7 @@ class ForgotPasword extends Component {
                         { this.state.message ? <p>{'Please check your email'}</p> : null }
                     </div>
                     <div className="form-group">
-                        <Button className="btnSign">{messages.submit}</Button>
+                        <Button className="btnSign">{M.get('submit')}</Button>
                     </div>
                     </ValidationForm>
             </div>

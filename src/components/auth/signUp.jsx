@@ -6,9 +6,9 @@ import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form
 import validator from 'validator';
 import { DebounceInput } from 'react-debounce-input';
 import { Button, Image, Icon } from 'react-components';
-import firebase, { storage } from '../../config/fbConfig';
+import firebase from '../../config/fbConfig';
 import Constants from '../../constants';
-import messages from '../../en.messages';
+import M from '../../Messages';
 import logo from '../../assets/logo.png';
 import '../../styles.scss';
 
@@ -74,10 +74,10 @@ class SignUp extends Component {
           <div className="logo">
             <Image src={logo} id='logo' alt="Logo" height={80} width={200} />
           </div>
-          <div className="title">{messages.signup}</div>
+          <div className="title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
             <div className="form-group">
-                <label className="lebel" htmlFor="email">{messages.email}</label>
+                <label className="lebel" htmlFor="email">{M.get('email')}</label>
                 <DebounceInput element={TextInput}
                     debounceTimeout={500}
                     name="email"
@@ -90,7 +90,7 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="password">{messages.password}</label>
+                <label className="lebel" htmlFor="password">{M.get('password')}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
                     name="password"
@@ -109,7 +109,7 @@ class SignUp extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lebel" htmlFor="displayName">{messages.displayName}</label>
+                <label className="lebel" htmlFor="displayName">{M.get('displayName')}</label>
                 <DebounceInput element={TextInputGroup}
                     debounceTimeout={500}
                     name="displayName"
@@ -146,7 +146,7 @@ class SignUp extends Component {
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
             <div className="form-group">
-                <Button className="btnSign">{messages.submit}</Button>
+                <Button className="btnSign">{M.get('submit')}</Button>
             </div>
         </ValidationForm>
         </div>

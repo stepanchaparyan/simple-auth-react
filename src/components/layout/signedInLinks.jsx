@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
-import messages from '../../en.messages';
+import M from '../../Messages';
 import '../../styles.scss';
 import Constants from '../../constants';
 
@@ -163,7 +163,7 @@ class SignedInLinks extends Component {
   }
 
   render () {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     return (
       <Nav pills>
         <Tooltip
@@ -187,7 +187,7 @@ class SignedInLinks extends Component {
             {this.state.show &&
                 <div className='navbar__profileInfo__full'>
                   <div className='navbar__profileInfo__leftPart'>
-                      <div className='navbar__profileInfo__leftPart__title'>{messages.name}</div>
+                      <div className='navbar__profileInfo__leftPart__title'>{M.get('name')}</div>
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
@@ -202,7 +202,7 @@ class SignedInLinks extends Component {
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-                      <div className='navbar__profileInfo__leftPart__title'>{messages.email}</div>
+                      <div className='navbar__profileInfo__leftPart__title'>{M.get('email')}</div>
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewEmail} />
@@ -220,7 +220,7 @@ class SignedInLinks extends Component {
                       }
                       { this.state.editable &&
                       <Fragment>
-                        <div className='navbar__profileInfo__leftPart__title'>{messages.confirmPassword}</div>
+                        <div className='navbar__profileInfo__leftPart__title'>{M.get('confirmPassword')}</div>
                         <input type="text" className='navbar__profileInfo__editableInput navbar__profileInfo__editableInput--margin' ref={this.textInputPassword} defaultValue=''></input>
                       </Fragment>
                       }
@@ -251,14 +251,14 @@ class SignedInLinks extends Component {
                           onClick={this.handleUpload}
                           disabled={!this.state.image}
                           >
-                          {messages.upload}
+                          {M.get('upload')}
                       </Button>
                   </div>
                 </div>
             }
         </div>
         <Tooltip
-            content={messages.signOut}
+            content={M.get('signOut')}
             position='bottom'
           >
             <NavItem

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Image, Spinner } from 'react-components';
 import { Progress } from 'reactstrap';
 import firebase, { storage } from '../../config/fbConfig';
-import messages from '../../en.messages';
+import M from '../../Messages';
 import '../../styles.scss';
 
 class UploadSection extends Component {
@@ -77,7 +77,7 @@ class UploadSection extends Component {
     const { imageSource } = this.props;
     return (
       <div className='imageContainer'>
-          <p className='favorite-section-title'>{messages['My favorite ']} {imageSource}</p>
+          <p className='favorite-section-title'>{M.get('dashboard.myFavorite')} {imageSource}</p>
           <div>
           { this.state[`fav${imageSource}PhotoURL`] ?
             <div>
@@ -111,7 +111,7 @@ class UploadSection extends Component {
               onClick={() => this.handleUpload((imageSource))}
               disabled={!this.state.image}
           >
-          {messages.Upload}
+          {M.get('upload')}
           </Button>
       </div>
     );

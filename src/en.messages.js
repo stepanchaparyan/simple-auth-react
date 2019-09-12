@@ -1,25 +1,25 @@
-module.exports = {
-    logIn: 'Log In',
+let messages = {
+    name: 'Name',
     email: 'Email',
     password: 'Password',
-    submit: 'Submit',
-    forgotPassword: 'Forgot password',
+    logIn: 'Log In',
     signup: 'Sign Up',
-    displayName: 'Name',
-    phoneNumber: 'Phone number',
-    resetPassword: 'Enter your email to reset password',
     signOut: 'Sign Out',
     signIn: 'Sign In',
-
-    name: 'Name',
-    confirmPassword: 'Confirm password',
+    submit: 'Submit',
     upload: 'Upload',
-
-    'Hello, everyone!': 'Hello, everyone!',
-    'Information page about signed user': 'Information page about signed user',
-    'Show my favorites': 'Show my favorites',
-    'My favorite song': 'My favorite song',
-
-    'My favorite ': 'My favorite',
-    'Upload': 'Upload'
+    forgotPassword: 'Forgot password',
+    confirmPassword: 'Confirm password',
+    resetPassword: 'Enter your email to reset password',
+    displayName: 'Name',
+    phoneNumber: 'Phone number',
+    dashboard: {
+        'helloEveryone!': 'Hello, everyone!',
+        'informationPageAboutSignedUser': 'Information page about signed user',
+        'showMyFavorites': 'Show my favorites',
+        'myFavoriteSong': 'My favorite song',
+        'myFavorite': 'My favorite'
+    }
 };
+
+module.exports = messages;
