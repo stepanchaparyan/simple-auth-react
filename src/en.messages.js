@@ -13,6 +13,7 @@ let messages = {
     resetPassword: 'Enter your email to reset password',
     displayName: 'Name',
     phoneNumber: 'Phone number',
+    pageNotFound: 'Page Not Found',
     dashboard: {
         'helloEveryone!': 'Hello, everyone!',
         'informationPageAboutSignedUser': 'Information page about signed user',

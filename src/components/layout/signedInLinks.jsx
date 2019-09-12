@@ -75,7 +75,8 @@ class SignedInLinks extends Component {
       storage.ref(uid).child(image.name).getDownloadURL().then(photoURL => {
         this.updateUserPhotoURL(photoURL);
         firebase.firestore().collection('users').doc(uid).update({
-          photoURL: photoURL
+          photoURL: photoURL,
+          updated: new Date()
         });
         this.setState({photoURL});
         this.setState({image:null});
@@ -105,7 +106,8 @@ class SignedInLinks extends Component {
   updateFirestoreUserDisplayName = (displayName) => {
     const uid = this.props.user.uid;
     firebase.firestore().collection('users').doc(uid).update({
-        displayName: displayName
+        displayName: displayName,
+        updated: new Date()
     })
     .catch(function(error) {
       console.log(error);
@@ -145,7 +147,8 @@ class SignedInLinks extends Component {
   updateFirestoreUserEmail = (email) => {
     const uid = this.props.user.uid;
     firebase.firestore().collection('users').doc(uid).update({
-        email: email
+        email: email,
+        updated: new Date()
     })
     .catch(function(error) {
       console.log(error);

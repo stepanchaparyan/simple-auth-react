@@ -55,7 +55,8 @@ class UploadSection extends Component {
     () => {
       storage.ref(uid).child(imageSource).getDownloadURL().then(url => {
         firebase.firestore().collection('users').doc(uid).update({
-          [`fav${imageSource}PhotoURL`]: url
+          [`fav${imageSource}PhotoURL`]: url,
+          updated: new Date()
         });
         this.setState(() => ({[`fav${imageSource}PhotoURL`]: url}));
       });

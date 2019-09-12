@@ -45,6 +45,7 @@ class SignUp extends Component {
       this.setState({user: resp.user});
       firebase.firestore().collection('users').doc(resp.user.uid).set({
         created: new Date(),
+        updated: new Date(),
         displayName: this.state.displayName,
         email: this.state.email,
         phoneNumber: this.state.phoneNumber,
