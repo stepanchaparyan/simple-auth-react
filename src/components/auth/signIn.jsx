@@ -18,7 +18,8 @@ class SignIn extends Component {
     password: '',
     type: 'password',
     user: '',
-    errorText: ''
+    errorText: '',
+    iconName: 'eye-slash'
   }
 
   uiConfig = {
@@ -55,8 +56,8 @@ class SignIn extends Component {
   }
 
   showhidepass = () => {
-    // eslint-disable-next-line no-unused-expressions
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
+    this.state.iconName === 'eye-slash' ? this.setState({iconName: 'eye'}) : this.setState({iconName: 'eye-slash'});
   }
 
   render() {
@@ -98,7 +99,7 @@ class SignIn extends Component {
                       }}
                       value={this.state.password}
                       onChange={this.handleChange}
-                      append={<div id="eye" onClick={this.showhidepass}><Icon name='eye' className='eye' /> </div>}
+                      append={<div id="eye" onClick={this.showhidepass}><Icon name={this.state.iconName} className='eye' /> </div>}
                       autoComplete='true'
                   />
               </div>

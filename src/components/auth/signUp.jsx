@@ -21,7 +21,8 @@ class SignUp extends Component {
     type: 'password',
     user: '',
     errorText: '',
-    photoURL: Constants.photoURL
+    photoURL: Constants.photoURL,
+    iconName: 'eye-slash'
   }
 
   static propTypes = {
@@ -62,8 +63,8 @@ class SignUp extends Component {
   }
 
   showhidepass = () => {
-    // eslint-disable-next-line no-unused-expressions
     this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
+    this.state.iconName === 'eye-slash' ? this.setState({iconName: 'eye'}) : this.setState({iconName: 'eye-slash'});
   }
 
   render() {
@@ -105,7 +106,7 @@ class SignUp extends Component {
                     }}
                     value={this.state.password}
                     onChange={this.handleChange}
-                    append={<div id="eye" onClick={this.showhidepass}><Icon name='eye' className='eye' /></div>}
+                    append={<div id="eye" onClick={this.showhidepass}><Icon name={this.state.iconName} className='eye' /></div>}
                     autoComplete='true'
                 />
             </div>
